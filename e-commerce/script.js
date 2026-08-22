@@ -3,28 +3,6 @@
    script.js
    =========================================================
 
-   FAMILIAS DE TÉ:
-   1. Té Verde
-   2. Té Matcha
-   3. Té Negro
-   4. Té Rojo
-   5. Rooibos
-
-   FUNCIONES PRINCIPALES:
-   - Catálogo
-   - Familias de productos
-   - Búsqueda
-   - Filtros
-   - Ordenación
-   - Formatos
-   - Carrito
-   - LocalStorage
-   - Checkout
-   - Newsletter
-   - Notificaciones
-========================================================= */
-
-
 /* =========================================================
    01. PRODUCTOS PRINCIPALES
 ========================================================= */
@@ -95,22 +73,24 @@ const products = [
         id: "blanco",
         name: "Té Blanco",
         category: "tes",
-        price: 8.20,
+        price: 0,
         description:
-            "Selección de té blanco.",
+            "Descubre nuestras diferentes variedades de té blanco.",
         emoji: "🌿",
-        bg: "product-bg-6"
+        bg: "product-bg-6",
+        family: "white-tea"
     },
 
     {
         id: "oolong",
         name: "Té Azul u Oolong",
         category: "tes",
-        price: 8.20,
+        price: 0,
         description:
-            "Selección de té azul u Oolong.",
-        emoji: "🌿",
-        bg: "product-bg-7"
+            "Descubre nuestras diferentes variedades de té Oolong.",
+        emoji: "🍃",
+        bg: "product-bg-7",
+        family: "oolong"
     },
 
     {
@@ -895,6 +875,112 @@ const rooibosVariants = [
 
 
 /* =========================================================
+   06b. TÉ BLANCO (NUEVA FAMILIA)
+========================================================= */
+
+const whiteTeaVariants = [
+
+    {
+        id: "noches-toronto",
+        name: "Té Blanco Noches de Toronto",
+        description:
+            "Té blanco aromático con notas evocadoras de la noche canadiense.",
+        emoji: "🌃",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "mango-pina",
+        name: "Té Blanco Mango y Piña",
+        description:
+            "Té blanco con una refrescante combinación tropical de mango y piña.",
+        emoji: "🥭",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "pai-mu-tan",
+        name: "Té Blanco Pai Mu Tan",
+        description:
+            "Clásico té blanco chino de sabor delicado y elegante.",
+        emoji: "🍃",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "lemon-sweet",
+        name: "Té Blanco Lemon Sweet",
+        description:
+            "Té blanco con un toque dulce y fresco de limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    }
+
+];
+
+
+/* =========================================================
+   06c. TÉ OOLONG (NUEVA FAMILIA)
+========================================================= */
+
+const oolongTeaVariants = [
+
+    {
+        id: "limon-jengibre",
+        name: "Té Oolong Limón y Jengibre",
+        description:
+            "Té Oolong con el toque cítrico del limón y el picante suave del jengibre.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "canela-limon",
+        name: "Té Oolong Canela y Limón",
+        description:
+            "Té Oolong combinado con canela y notas frescas de limón.",
+        emoji: "🍊",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "original",
+        name: "Té Oolong Original",
+        description:
+            "Té Oolong clásico de sabor suave y ligeramente tostado.",
+        emoji: "🍃",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "formosa",
+        name: "Té Oolong Formosa",
+        description:
+            "Té Oolong de Taiwán con carácter floral y afrutado.",
+        emoji: "🌸",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    }
+
+];
+
+
+/* =========================================================
    07. CONFIGURACIÓN DE FAMILIAS
 ========================================================= */
 
@@ -943,6 +1029,24 @@ const teaFamilies = {
             "Explora nuestra selección de Rooibos.",
         icon: "🌿",
         variants: rooibosVariants
+    },
+
+    "white-tea": {
+        title: "Variedades de Té Blanco",
+        eyebrow: "TÉS BLANCOS",
+        description:
+            "Explora nuestra selección de tés blancos.",
+        icon: "🌿",
+        variants: whiteTeaVariants
+    },
+
+    "oolong": {
+        title: "Variedades de Té Oolong",
+        eyebrow: "TÉ OOLONG",
+        description:
+            "Explora nuestra selección de tés Oolong.",
+        icon: "🍃",
+        variants: oolongTeaVariants
     }
 
 };
@@ -3711,7 +3815,33 @@ function openGreenTea() {
 
 
 /* =========================================================
-   68. INICIALIZACIÓN
+   68. ACCESO DIRECTO TÉ BLANCO
+========================================================= */
+
+function openWhiteTea() {
+
+    openFamily(
+        "white-tea"
+    );
+
+}
+
+
+/* =========================================================
+   69. ACCESO DIRECTO TÉ OOLONG
+========================================================= */
+
+function openOolong() {
+
+    openFamily(
+        "oolong"
+    );
+
+}
+
+
+/* =========================================================
+   70. INICIALIZACIÓN
 ========================================================= */
 
 function initStore() {
@@ -3726,7 +3856,7 @@ function initStore() {
 
 
 /* =========================================================
-   69. INICIAR TIENDA
+   71. INICIAR TIENDA
 ========================================================= */
 
 initStore();
