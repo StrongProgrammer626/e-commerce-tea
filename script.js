@@ -1,7 +1,7 @@
 /* =========================================================
    ALMA NATURAL
    script.js
-   =========================================================
+   ========================================================= */
 
 /* =========================================================
    01. PRODUCTOS PRINCIPALES
@@ -115,38 +115,133 @@ const products = [
         bg: "product-bg-9"
     },
 
+    /* =========================================================
+       NUEVA CATEGORÍA: INFUSIONES Y ESPECIAS
+    ========================================================= */
+
     {
-        id: "manzanilla",
-        name: "Manzanilla Floral",
+        id: "infusiones-herbales",
+        name: "Infusiones Herbales",
         category: "infusiones",
-        price: 7.50,
+        price: 0,
         description:
-            "Infusión floral delicada y aromática.",
-        emoji: "🌼",
-        bg: "product-bg-10"
+            "Selección de infusiones a base de hierbas naturales.",
+        emoji: "🌿",
+        bg: "product-bg-10",
+        family: "infusiones-herbales"
     },
 
     {
-        id: "canela",
-        name: "Canela de Ceylán",
+        id: "infusiones-frutales",
+        name: "Infusiones Frutales",
         category: "infusiones",
-        price: 6.90,
+        price: 0,
         description:
-            "Canela seleccionada de sabor suave.",
-        emoji: "🪵",
-        bg: "product-bg-11"
+            "Infusiones con sabores frutales y aromáticos.",
+        emoji: "🍓",
+        bg: "product-bg-11",
+        family: "infusiones-frutales"
     },
 
     {
-        id: "curcuma",
-        name: "Cúrcuma Premium",
+        id: "infusiones-afrodisiacas",
+        name: "Infusiones y Tés Afrodisíacos",
         category: "infusiones",
-        price: 6.50,
+        price: 0,
         description:
-            "Cúrcuma aromática seleccionada.",
-        emoji: "🟠",
-        bg: "product-bg-12"
+            "Mezclas aromáticas pensadas para estimular los sentidos.",
+        emoji: "❤️",
+        bg: "product-bg-12",
+        family: "infusiones-afrodisiacas"
     },
+
+    {
+        id: "infusiones-control-peso",
+        name: "Infusiones y Tés Control de Peso",
+        category: "infusiones",
+        price: 0,
+        description:
+            "Tés e infusiones que acompañan una dieta equilibrada.",
+        emoji: "⚖️",
+        bg: "product-bg-13",
+        family: "infusiones-control-peso"
+    },
+
+    {
+        id: "infusiones-digestivas",
+        name: "Infusiones y Tés Digestivos",
+        category: "infusiones",
+        price: 0,
+        description:
+            "Infusiones que ayudan a una buena digestión.",
+        emoji: "🍵",
+        bg: "product-bg-14",
+        family: "infusiones-digestivas"
+    },
+
+    {
+        id: "infusiones-relajantes",
+        name: "Infusiones y Tés Relajantes",
+        category: "infusiones",
+        price: 0,
+        description:
+            "Infusiones suaves para momentos de calma y descanso.",
+        emoji: "😌",
+        bg: "product-bg-15",
+        family: "infusiones-relajantes"
+    },
+
+    {
+        id: "infusiones-energizantes",
+        name: "Infusiones y Tés Energizantes",
+        category: "infusiones",
+        price: 0,
+        description:
+            "Tés e infusiones que aportan vitalidad y energía.",
+        emoji: "⚡",
+        bg: "product-bg-16",
+        family: "infusiones-energizantes"
+    },
+
+    {
+        id: "infusiones-ecologicas",
+        name: "Infusiones Ecológicas",
+        category: "infusiones",
+        price: 0,
+        description:
+            "Infusiones procedentes de cultivo ecológico certificado.",
+        emoji: "🌱",
+        bg: "product-bg-17",
+        family: "infusiones-ecologicas"
+    },
+
+    {
+        id: "especias-y-mas",
+        name: "Especias y Más",
+        category: "infusiones",
+        price: 0,
+        description:
+            "Especias seleccionadas y otros condimentos naturales.",
+        emoji: "🧂",
+        bg: "product-bg-18",
+        family: "especias-y-mas"
+    },
+
+    {
+        id: "alimentos-funcionales",
+        name: "Alimentos Funcionales",
+        category: "infusiones",
+        price: 0,
+        description:
+            "Productos naturales con beneficios específicos para tu bienestar.",
+        emoji: "🥗",
+        bg: "product-bg-19",
+        family: "alimentos-funcionales"
+    },
+
+    /* =========================================================
+       FIN NUEVA CATEGORÍA
+    ========================================================= */
 
     {
         id: "cosmetica",
@@ -156,7 +251,7 @@ const products = [
         description:
             "Aceite natural para el cuidado de la piel.",
         emoji: "🧴",
-        bg: "product-bg-13"
+        bg: "product-bg-20"
     },
 
     {
@@ -167,7 +262,7 @@ const products = [
         description:
             "Selección de minerales naturales.",
         emoji: "💎",
-        bg: "product-bg-14"
+        bg: "product-bg-21"
     },
 
     {
@@ -178,7 +273,7 @@ const products = [
         description:
             "Una selección especial para regalar.",
         emoji: "🎁",
-        bg: "product-bg-15"
+        bg: "product-bg-22"
     }
 
 ];
@@ -875,7 +970,7 @@ const rooibosVariants = [
 
 
 /* =========================================================
-   06b. TÉ BLANCO (NUEVA FAMILIA)
+   06b. TÉ BLANCO
 ========================================================= */
 
 const whiteTeaVariants = [
@@ -928,7 +1023,7 @@ const whiteTeaVariants = [
 
 
 /* =========================================================
-   06c. TÉ OOLONG (NUEVA FAMILIA)
+   06c. TÉ OOLONG
 ========================================================= */
 
 const oolongTeaVariants = [
@@ -981,7 +1076,818 @@ const oolongTeaVariants = [
 
 
 /* =========================================================
-   07. CONFIGURACIÓN DE FAMILIAS
+   07. INFUSIONES HERBALES
+========================================================= */
+
+const infusionesHerbalesVariants = [
+
+    {
+        id: "hibisco-flor",
+        name: "Hibisco Flor",
+        description:
+            "Infusión de hibisco de color intenso y sabor ligeramente ácido.",
+        emoji: "🌺",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "manzanilla-flor",
+        name: "Manzanilla Flor",
+        description:
+            "Flores de manzanilla para una infusión suave y relajante.",
+        emoji: "🌼",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "melisa-hojas",
+        name: "Melisa Hojas",
+        description:
+            "Hojas de melisa con un delicado aroma cítrico.",
+        emoji: "🌿",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "menta-poleo",
+        name: "Menta Poleo",
+        description:
+            "Menta poleo de sabor fresco y mentolado.",
+        emoji: "🌱",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "cola-caballo",
+        name: "Cola de Caballo",
+        description:
+            "Cola de caballo para infusiones depurativas.",
+        emoji: "🌿",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "jengibre-raiz",
+        name: "Jengibre Raíz",
+        description:
+            "Raíz de jengibre para infusiones picantes y estimulantes.",
+        emoji: "🫚",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "infusion-ayurveda",
+        name: "Infusión Ayurveda",
+        description:
+            "Mezcla de hierbas según la tradición ayurvédica.",
+        emoji: "☯️",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "anis-verde",
+        name: "Anís Verde",
+        description:
+            "Semillas de anís verde de sabor dulce y aromático.",
+        emoji: "⭐",
+        formats: [
+            { name: "120 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "cascara-naranja",
+        name: "Cáscara de Naranja",
+        description:
+            "Cáscara de naranja seca para infusiones cítricas.",
+        emoji: "🍊",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "hinojo-semillas",
+        name: "Hinojo Semillas",
+        description:
+            "Semillas de hinojo de sabor anisado y digestivo.",
+        emoji: "🌿",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "infusion-dulces-suenos",
+        name: "Infusión Dulces Sueños",
+        description:
+            "Mezcla relajante para facilitar el descanso.",
+        emoji: "😴",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "anis-estrellado",
+        name: "Anís Estrellado",
+        description:
+            "Estrellas de anís con intenso aroma.",
+        emoji: "🌟",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "tila",
+        name: "Tila",
+        description:
+            "Flores de tilo para infusiones relajantes.",
+        emoji: "🌳",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "yerba-mate",
+        name: "Yerba Mate",
+        description:
+            "Hojas de yerba mate para preparar mate tradicional.",
+        emoji: "🧉",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "te-lemongrass",
+        name: "Té Lemongrass",
+        description:
+            "Hierba limón (lemongrass) para infusiones cítricas.",
+        emoji: "🍋",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "eucalipto",
+        name: "Eucalipto",
+        description:
+            "Hojas de eucalipto para infusiones balsámicas.",
+        emoji: "🌿",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "calendula-flor",
+        name: "Caléndula Flor",
+        description:
+            "Pétalos de caléndula para infusiones suaves.",
+        emoji: "🌼",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "hiperico-cortado",
+        name: "Hipérico cortado",
+        description:
+            "Hierba de San Juan cortada para infusiones.",
+        emoji: "🌿",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "hierbabuena-cortada",
+        name: "Hierbabuena cortada",
+        description:
+            "Hierbabuena fresca cortada para infusiones.",
+        emoji: "🌱",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "tomillo",
+        name: "Tomillo",
+        description:
+            "Tomillo seco para infusiones aromáticas.",
+        emoji: "🌿",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "regaliz",
+        name: "Regaliz",
+        description:
+            "Raíz de regaliz para infusiones dulces.",
+        emoji: "🪵",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "adios-gases",
+        name: "Adiós Gases",
+        description:
+            "Mezcla de hierbas para reducir los gases.",
+        emoji: "💨",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "adios-atasco",
+        name: "Adiós Atasco",
+        description:
+            "Mezcla laxante suave para mejorar el tránsito.",
+        emoji: "🚽",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "stevia",
+        name: "Stevia",
+        description:
+            "Hojas de stevia para endulzar infusiones.",
+        emoji: "🍃",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "olivo-hojas",
+        name: "Olivo Hojas",
+        description:
+            "Hojas de olivo para infusiones antioxidantes.",
+        emoji: "🫒",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "infusion-armonia-bio",
+        name: "Infusión Armonía Bio",
+        description:
+            "Mezcla ecológica que aporta equilibrio y bienestar.",
+        emoji: "☮️",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "hierbas-circulamon",
+        name: "Hierbas Circulamón",
+        description:
+            "Mezcla para mejorar la circulación.",
+        emoji: "❤️",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "hierbas-alergon",
+        name: "Hierbas Alergón",
+        description:
+            "Mezcla de hierbas para aliviar síntomas alérgicos.",
+        emoji: "🤧",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    }
+
+];
+
+
+/* =========================================================
+   07b. INFUSIONES FRUTALES
+========================================================= */
+
+const infusionesFrutalesVariants = [
+
+    {
+        id: "bayas-cereza-silvestre",
+        name: "Infusión Bayas y Cereza Silvestre",
+        description:
+            "Mezcla frutal de bayas y cereza silvestre.",
+        emoji: "🍒",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "lima-limon",
+        name: "Infusión Lima Limón",
+        description:
+            "Infusión cítrica de lima y limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "te-turco-manzana",
+        name: "Té Turco de Manzana",
+        description:
+            "Té de manzana al estilo turco, dulce y aromático.",
+        emoji: "🍎",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "delicia-suprema",
+        name: "Infusión Delicia Suprema",
+        description:
+            "Mezcla frutal de sabor intenso y delicioso.",
+        emoji: "🍹",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "frutos-rojos-bio",
+        name: "Infusión Frutos Rojos Bio",
+        description:
+            "Infusión ecológica de frutos rojos.",
+        emoji: "🫐",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "copacabana",
+        name: "Infusión Copacabana",
+        description:
+            "Mezcla tropical inspirada en la playa de Copacabana.",
+        emoji: "🌴",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "papaya",
+        name: "Papaya",
+        description:
+            "Infusión de papaya, dulce y exótica.",
+        emoji: "🥭",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    }
+
+];
+
+
+/* =========================================================
+   07c. INFUSIONES Y TÉS AFRODISÍACOS
+========================================================= */
+
+const infusionesAfrodisiacasVariants = [
+
+    {
+        id: "afrodisiaco-negro-afrodisiaco",
+        name: "Té Negro Afrodisíaco",
+        description:
+            "Té negro de aroma intenso y especiado.",
+        emoji: "❤️",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-negro-pasion-turca",
+        name: "Té Negro Pasión Turca",
+        description:
+            "Té negro inspirado en los aromas orientales.",
+        emoji: "🌹",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-negro-chocolate-vainilla",
+        name: "Té Negro Chocolate y Vainilla",
+        description:
+            "Té negro aromático con notas de chocolate y vainilla.",
+        emoji: "🍫",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-verde-jazmin-flores",
+        name: "Té Verde Jazmín y Flores",
+        description:
+            "Té verde aromatizado con delicadas flores de jazmín.",
+        emoji: "🌸",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-negro-navidad-new",
+        name: "Té Negro Navidad New",
+        description:
+            "Mezcla de té negro especial para Navidad.",
+        emoji: "🎄",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-rojo-chai-massai",
+        name: "Té Rojo Chai Massai",
+        description:
+            "Té rojo combinado con especias de estilo Chai.",
+        emoji: "🌶️",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-rojo-chocolate-vainilla",
+        name: "Té Rojo Chocolate y Vainilla",
+        description:
+            "Té rojo con notas dulces de chocolate y vainilla.",
+        emoji: "🍫",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-blanco-noches-toronto",
+        name: "Té Blanco Noches de Toronto",
+        description:
+            "Té blanco aromático con notas evocadoras de la noche canadiense.",
+        emoji: "🌃",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-verde-green-chai",
+        name: "Té Verde Green Chai",
+        description:
+            "Té verde combinado con una selección de especias.",
+        emoji: "🌱",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-rooibos-chai",
+        name: "Rooibos Chai",
+        description:
+            "Rooibos combinado con especias de estilo Chai.",
+        emoji: "☕",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-verde-mango-sweet",
+        name: "Té Verde Mango Sweet",
+        description:
+            "Aromático té verde con sabor dulce de mango.",
+        emoji: "🥭",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-rojo-jazmin-premium",
+        name: "Té Rojo Jazmín Premium",
+        description:
+            "Té rojo premium con delicadas notas de jazmín.",
+        emoji: "🌸",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-rojo-canela-limon",
+        name: "Té Rojo Canela y Limón",
+        description:
+            "Té rojo con canela y frescas notas de limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-infusion-ayurveda",
+        name: "Infusión Ayurveda",
+        description:
+            "Mezcla de hierbas según la tradición ayurvédica.",
+        emoji: "☯️",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-oolong-limon-jengibre",
+        name: "Té Oolong Limón y Jengibre",
+        description:
+            "Té Oolong con el toque cítrico del limón y el picante suave del jengibre.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-verde-jengibre-limon-bio",
+        name: "Té Verde Jengibre y Limón Bio",
+        description:
+            "Té verde ecológico con jengibre y limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "afrodisiaco-jengibre-raiz",
+        name: "Jengibre Raíz",
+        description:
+            "Raíz de jengibre para infusiones picantes y estimulantes.",
+        emoji: "🫚",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    }
+
+];
+
+
+/* =========================================================
+   07d. INFUSIONES Y TÉS CONTROL DE PESO
+========================================================= */
+
+const infusionesControlPesoVariants = [
+
+    {
+        id: "control-peso-rojo-esbelt-line",
+        name: "Té Rojo Esbelt Line",
+        description:
+            "Té rojo de carácter aromático.",
+        emoji: "🌿",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-verde-drena-liquidos",
+        name: "Té Verde Drena líquidos",
+        description:
+            "Mezcla aromática pensada para acompañar tu rutina.",
+        emoji: "💧",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-rojo-chai-massai",
+        name: "Té Rojo Chai Massai",
+        description:
+            "Té rojo combinado con especias de estilo Chai.",
+        emoji: "🌶️",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-verde-green-chai",
+        name: "Té Verde Green Chai",
+        description:
+            "Té verde combinado con una selección de especias.",
+        emoji: "🌱",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-rojo-canela-limon",
+        name: "Té Rojo Canela y Limón",
+        description:
+            "Té rojo con canela y frescas notas de limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-verde-lima-japonesa",
+        name: "Té Verde Lima Japonesa",
+        description:
+            "Té verde con notas frescas de lima.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-verde-jengibre-limon-bio",
+        name: "Té Verde Jengibre y Limón Bio",
+        description:
+            "Té verde ecológico con jengibre y limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-negro-lemon-fresh",
+        name: "Té Negro Lemon Fresh",
+        description:
+            "Té negro fresco con notas de limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-blanco-noches-toronto",
+        name: "Té Blanco Noches de Toronto",
+        description:
+            "Té blanco aromático con notas evocadoras de la noche canadiense.",
+        emoji: "🌃",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-rooibos-chai",
+        name: "Rooibos Chai",
+        description:
+            "Rooibos combinado con especias de estilo Chai.",
+        emoji: "☕",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-hibisco-flor",
+        name: "Hibisco Flor",
+        description:
+            "Infusión de hibisco de color intenso y sabor ligeramente ácido.",
+        emoji: "🌺",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-infusion-ayurveda",
+        name: "Infusión Ayurveda",
+        description:
+            "Mezcla de hierbas según la tradición ayurvédica.",
+        emoji: "☯️",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-jengibre-raiz",
+        name: "Jengibre Raíz",
+        description:
+            "Raíz de jengibre para infusiones picantes y estimulantes.",
+        emoji: "🫚",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-cola-caballo",
+        name: "Cola de Caballo",
+        description:
+            "Cola de caballo para infusiones depurativas.",
+        emoji: "🌿",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-infusion-lima-limon",
+        name: "Infusión Lima Limón",
+        description:
+            "Infusión cítrica de lima y limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-te-lemongrass",
+        name: "Té Lemongrass",
+        description:
+            "Hierba limón (lemongrass) para infusiones cítricas.",
+        emoji: "🍋",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-adios-atasco",
+        name: "Adiós Atasco",
+        description:
+            "Mezcla laxante suave para mejorar el tránsito.",
+        emoji: "🚽",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "control-peso-stevia",
+        name: "Stevia",
+        description:
+            "Hojas de stevia para endulzar infusiones.",
+        emoji: "🍃",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    }
+
+];
+
+
+/* =========================================================
+   08. CONFIGURACIÓN DE FAMILIAS
 ========================================================= */
 
 const teaFamilies = {
@@ -1047,13 +1953,107 @@ const teaFamilies = {
             "Explora nuestra selección de tés Oolong.",
         icon: "🍃",
         variants: oolongTeaVariants
+    },
+
+    /* =========================================================
+       FAMILIAS DE INFUSIONES Y ESPECIAS
+    ========================================================= */
+
+    "infusiones-herbales": {
+        title: "Infusiones Herbales",
+        eyebrow: "INFUSIONES HERBALES",
+        description:
+            "Infusiones a base de hierbas naturales seleccionadas.",
+        icon: "🌿",
+        variants: infusionesHerbalesVariants
+    },
+
+    "infusiones-frutales": {
+        title: "Infusiones Frutales",
+        eyebrow: "INFUSIONES FRUTALES",
+        description:
+            "Infusiones con deliciosos sabores frutales.",
+        icon: "🍓",
+        variants: infusionesFrutalesVariants
+    },
+
+    "infusiones-afrodisiacas": {
+        title: "Infusiones y Tés Afrodisíacos",
+        eyebrow: "AFRODISÍACOS",
+        description:
+            "Mezclas aromáticas para despertar los sentidos.",
+        icon: "❤️",
+        variants: infusionesAfrodisiacasVariants
+    },
+
+    "infusiones-control-peso": {
+        title: "Infusiones y Tés Control de Peso",
+        eyebrow: "CONTROL DE PESO",
+        description:
+            "Infusiones que acompañan un estilo de vida saludable.",
+        icon: "⚖️",
+        variants: infusionesControlPesoVariants
+    },
+
+    "infusiones-digestivas": {
+        title: "Infusiones y Tés Digestivos",
+        eyebrow: "DIGESTIVOS",
+        description:
+            "Infusiones que favorecen una buena digestión.",
+        icon: "🍵",
+        variants: []
+    },
+
+    "infusiones-relajantes": {
+        title: "Infusiones y Tés Relajantes",
+        eyebrow: "RELAJANTES",
+        description:
+            "Infusiones suaves para momentos de calma.",
+        icon: "😌",
+        variants: []
+    },
+
+    "infusiones-energizantes": {
+        title: "Infusiones y Tés Energizantes",
+        eyebrow: "ENERGIZANTES",
+        description:
+            "Tés e infusiones que aportan vitalidad.",
+        icon: "⚡",
+        variants: []
+    },
+
+    "infusiones-ecologicas": {
+        title: "Infusiones Ecológicas",
+        eyebrow: "ECOLÓGICAS",
+        description:
+            "Infusiones de cultivo ecológico certificado.",
+        icon: "🌱",
+        variants: []
+    },
+
+    "especias-y-mas": {
+        title: "Especias y Más",
+        eyebrow: "ESPECIAS",
+        description:
+            "Especias seleccionadas y condimentos naturales.",
+        icon: "🧂",
+        variants: []
+    },
+
+    "alimentos-funcionales": {
+        title: "Alimentos Funcionales",
+        eyebrow: "FUNCIONALES",
+        description:
+            "Productos naturales con beneficios específicos.",
+        icon: "🥗",
+        variants: []
     }
 
 };
 
 
 /* =========================================================
-   08. ESTADO GLOBAL
+   09. ESTADO GLOBAL
 ========================================================= */
 
 let cart = [];
@@ -1068,7 +2068,7 @@ let toastTimer = null;
 
 
 /* =========================================================
-   09. ELEMENTOS DEL DOM
+   10. ELEMENTOS DEL DOM
 ========================================================= */
 
 const productsGrid =
@@ -1127,7 +2127,7 @@ const checkoutModal =
 
 
 /* =========================================================
-   10. FORMATO DE MONEDA
+   11. FORMATO DE MONEDA
 ========================================================= */
 
 const money =
@@ -1141,7 +2141,7 @@ const money =
 
 
 /* =========================================================
-   11. LOCAL STORAGE
+   12. LOCAL STORAGE
 ========================================================= */
 
 function saveCart() {
@@ -1155,7 +2155,7 @@ function saveCart() {
 
 
 /* =========================================================
-   12. CARGAR CARRITO
+   13. CARGAR CARRITO
 ========================================================= */
 
 function loadCart() {
@@ -1190,7 +2190,7 @@ function loadCart() {
 
 
 /* =========================================================
-   13. NOTIFICACIONES
+   14. NOTIFICACIONES
 ========================================================= */
 
 function showToast(message) {
@@ -1226,7 +2226,7 @@ function showToast(message) {
 
 
 /* =========================================================
-   14. NOMBRE DE CATEGORÍA
+   15. NOMBRE DE CATEGORÍA
 ========================================================= */
 
 function getCategoryName(category) {
@@ -1259,7 +2259,7 @@ function getCategoryName(category) {
 
 
 /* =========================================================
-   15. RENDER DEL CATÁLOGO
+   16. RENDER DEL CATÁLOGO
 ========================================================= */
 
 function renderProducts() {
@@ -1517,7 +2517,7 @@ function renderProducts() {
 
 
 /* =========================================================
-   16. EVENTOS DE PRODUCTOS
+   17. EVENTOS DE PRODUCTOS
 ========================================================= */
 
 function attachProductEvents() {
@@ -1573,7 +2573,7 @@ function attachProductEvents() {
 
 
 /* =========================================================
-   17. ABRIR FAMILIA
+   18. ABRIR FAMILIA
 ========================================================= */
 
 function openFamily(family) {
@@ -1677,7 +2677,7 @@ function openFamily(family) {
 
 
 /* =========================================================
-   18. CERRAR FAMILIA
+   19. CERRAR FAMILIA
 ========================================================= */
 
 function closeFamily() {
@@ -1716,7 +2716,7 @@ function closeFamily() {
 
 
 /* =========================================================
-   19. RENDER DE FAMILIA
+   20. RENDER DE FAMILIA
 ========================================================= */
 
 function renderFamily() {
@@ -1813,7 +2813,7 @@ function renderFamily() {
 
 
 /* =========================================================
-   20. CREAR TARJETA DE FAMILIA
+   21. CREAR TARJETA DE FAMILIA
 ========================================================= */
 
 function renderFamilyCard(item) {
@@ -1968,7 +2968,7 @@ function renderFamilyCard(item) {
 
 
 /* =========================================================
-   21. EVENTOS DE FAMILIA
+   22. EVENTOS DE FAMILIA
 ========================================================= */
 
 function attachFamilyEvents() {
@@ -2024,7 +3024,7 @@ function attachFamilyEvents() {
 
 
 /* =========================================================
-   22. SELECCIONAR FORMATO
+   23. SELECCIONAR FORMATO
 ========================================================= */
 
 function selectFamilyFormat(
@@ -2158,7 +3158,7 @@ function selectFamilyFormat(
 
 
 /* =========================================================
-   23. AÑADIR PRODUCTO DE FAMILIA
+   24. AÑADIR PRODUCTO DE FAMILIA
 ========================================================= */
 
 function addFamilyProductToCart(
@@ -2274,7 +3274,7 @@ function addFamilyProductToCart(
 
 
 /* =========================================================
-   24. COMPATIBILIDAD TÉ VERDE
+   25. COMPATIBILIDAD TÉ VERDE
 ========================================================= */
 
 function renderGreenTea() {
@@ -2302,7 +3302,7 @@ function addGreenTeaToCart(
 
 
 /* =========================================================
-   25. AÑADIR PRODUCTO NORMAL
+   26. AÑADIR PRODUCTO NORMAL
 ========================================================= */
 
 function addToCart(
@@ -2384,7 +3384,7 @@ function addToCart(
 
 
 /* =========================================================
-   26. ACTUALIZAR CARRITO
+   27. ACTUALIZAR CARRITO
 ========================================================= */
 
 function updateCart() {
@@ -2640,7 +3640,7 @@ function updateCart() {
 
 
 /* =========================================================
-   27. EVENTOS DEL CARRITO
+   28. EVENTOS DEL CARRITO
 ========================================================= */
 
 function attachCartEvents() {
@@ -2716,7 +3716,7 @@ function attachCartEvents() {
 
 
 /* =========================================================
-   28. CAMBIAR CANTIDAD
+   29. CAMBIAR CANTIDAD
 ========================================================= */
 
 function changeQuantity(
@@ -2763,7 +3763,7 @@ function changeQuantity(
 
 
 /* =========================================================
-   29. ELIMINAR DEL CARRITO
+   30. ELIMINAR DEL CARRITO
 ========================================================= */
 
 function removeFromCart(
@@ -2786,7 +3786,7 @@ function removeFromCart(
 
 
 /* =========================================================
-   30. FILTROS PRINCIPALES
+   31. FILTROS PRINCIPALES
 ========================================================= */
 
 document
@@ -2833,7 +3833,7 @@ document
 
 
 /* =========================================================
-   31. TARJETAS DE SUBCATEGORÍAS DE TÉ
+   32. TARJETAS DE SUBCATEGORÍAS DE TÉ
 ========================================================= */
 
 document
@@ -2875,7 +3875,7 @@ document
 
 
 /* =========================================================
-   32. ORDENAR PRODUCTOS
+   33. ORDENAR PRODUCTOS
 ========================================================= */
 
 const sortProducts =
@@ -2899,7 +3899,7 @@ if (sortProducts) {
 
 
 /* =========================================================
-   33. BUSCADOR PRINCIPAL
+   34. BUSCADOR PRINCIPAL
 ========================================================= */
 
 const searchInput =
@@ -2923,7 +3923,7 @@ if (searchInput) {
 
 
 /* =========================================================
-   34. BUSCADOR DE FAMILIAS
+   35. BUSCADOR DE FAMILIAS
 ========================================================= */
 
 if (greenTeaSearch) {
@@ -2944,7 +3944,7 @@ if (greenTeaSearch) {
 
 
 /* =========================================================
-   35. CATEGORÍAS PRINCIPALES
+   36. CATEGORÍAS PRINCIPALES
 ========================================================= */
 
 document
@@ -3017,7 +4017,7 @@ document
 
 
 /* =========================================================
-   36. BOTÓN VOLVER
+   37. BOTÓN VOLVER
 ========================================================= */
 
 const backToCatalog =
@@ -3041,7 +4041,7 @@ if (backToCatalog) {
 
 
 /* =========================================================
-   37. ABRIR CARRITO
+   38. ABRIR CARRITO
 ========================================================= */
 
 const cartButton =
@@ -3067,7 +4067,7 @@ if (cartButton) {
 
 
 /* =========================================================
-   38. CERRAR CARRITO
+   39. CERRAR CARRITO
 ========================================================= */
 
 const closeCart =
@@ -3093,7 +4093,7 @@ if (closeCart) {
 
 
 /* =========================================================
-   39. CLIC FUERA DEL CARRITO
+   40. CLIC FUERA DEL CARRITO
 ========================================================= */
 
 if (cartOverlay) {
@@ -3120,7 +4120,7 @@ if (cartOverlay) {
 
 
 /* =========================================================
-   40. PANEL DE BÚSQUEDA
+   41. PANEL DE BÚSQUEDA
 ========================================================= */
 
 const searchButton =
@@ -3165,7 +4165,7 @@ if (
 
 
 /* =========================================================
-   41. CHECKOUT
+   42. CHECKOUT
 ========================================================= */
 
 const checkoutButton =
@@ -3214,7 +4214,7 @@ if (checkoutButton) {
 
 
 /* =========================================================
-   42. CERRAR CHECKOUT
+   43. CERRAR CHECKOUT
 ========================================================= */
 
 if (closeCheckout) {
@@ -3234,7 +4234,7 @@ if (closeCheckout) {
 
 
 /* =========================================================
-   43. FORMULARIO CHECKOUT
+   44. FORMULARIO CHECKOUT
 ========================================================= */
 
 if (checkoutForm) {
@@ -3286,7 +4286,7 @@ if (checkoutForm) {
 
 
 /* =========================================================
-   44. NEWSLETTER
+   45. NEWSLETTER
 ========================================================= */
 
 const newsletterForm =
@@ -3318,7 +4318,7 @@ if (newsletterForm) {
 
 
 /* =========================================================
-   45. TECLA ESC
+   46. TECLA ESC
 ========================================================= */
 
 document.addEventListener(
@@ -3360,7 +4360,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   46. FUNCIONES AUXILIARES
+   47. FUNCIONES AUXILIARES
 ========================================================= */
 
 function getFamilyProducts(
@@ -3382,7 +4382,7 @@ function getFamilyProducts(
 
 
 /* =========================================================
-   47. BUSCAR PRODUCTO DE FAMILIA
+   48. BUSCAR PRODUCTO DE FAMILIA
 ========================================================= */
 
 function findFamilyProduct(
@@ -3406,7 +4406,7 @@ function findFamilyProduct(
 
 
 /* =========================================================
-   48. OBTENER PRECIO
+   49. OBTENER PRECIO
 ========================================================= */
 
 function getFamilyPrice(
@@ -3441,7 +4441,7 @@ function getFamilyPrice(
 
 
 /* =========================================================
-   49. COMPROBAR FAMILIA
+   50. COMPROBAR FAMILIA
 ========================================================= */
 
 function familyExists(
@@ -3456,7 +4456,7 @@ function familyExists(
 
 
 /* =========================================================
-   50. OBTENER FAMILIA ACTUAL
+   51. OBTENER FAMILIA ACTUAL
 ========================================================= */
 
 function getCurrentFamily() {
@@ -3467,7 +4467,7 @@ function getCurrentFamily() {
 
 
 /* =========================================================
-   51. CONTAR PRODUCTOS
+   52. CONTAR PRODUCTOS
 ========================================================= */
 
 function countFamilyProducts(
@@ -3482,7 +4482,7 @@ function countFamilyProducts(
 
 
 /* =========================================================
-   52. OBTENER FAMILIAS
+   53. OBTENER FAMILIAS
 ========================================================= */
 
 function getAvailableFamilies() {
@@ -3495,7 +4495,7 @@ function getAvailableFamilies() {
 
 
 /* =========================================================
-   53. VALIDAR PRECIO
+   54. VALIDAR PRECIO
 ========================================================= */
 
 function hasValidPrice(
@@ -3510,7 +4510,7 @@ function hasValidPrice(
 
 
 /* =========================================================
-   54. TEXTO DEL PRECIO
+   55. TEXTO DEL PRECIO
 ========================================================= */
 
 function getPriceText(
@@ -3527,7 +4527,7 @@ function getPriceText(
 
 
 /* =========================================================
-   55. NORMALIZAR TEXTO
+   56. NORMALIZAR TEXTO
 ========================================================= */
 
 function normalizeText(
@@ -3551,7 +4551,7 @@ function normalizeText(
 
 
 /* =========================================================
-   56. BUSCAR DENTRO DE FAMILIA
+   57. BUSCAR DENTRO DE FAMILIA
 ========================================================= */
 
 function searchFamily(
@@ -3599,7 +4599,7 @@ function searchFamily(
 
 
 /* =========================================================
-   57. OBTENER FORMATO
+   58. OBTENER FORMATO
 ========================================================= */
 
 function getFamilyFormat(
@@ -3630,7 +4630,7 @@ function getFamilyFormat(
 
 
 /* =========================================================
-   58. OBTENER CANTIDAD DEL CARRITO
+   59. OBTENER CANTIDAD DEL CARRITO
 ========================================================= */
 
 function getCartQuantity() {
@@ -3651,7 +4651,7 @@ function getCartQuantity() {
 
 
 /* =========================================================
-   59. OBTENER SUBTOTAL
+   60. OBTENER SUBTOTAL
 ========================================================= */
 
 function getCartSubtotal() {
@@ -3677,7 +4677,7 @@ function getCartSubtotal() {
 
 
 /* =========================================================
-   60. OBTENER ENVÍO
+   61. OBTENER ENVÍO
 ========================================================= */
 
 function getShippingCost() {
@@ -3706,7 +4706,7 @@ function getShippingCost() {
 
 
 /* =========================================================
-   61. OBTENER TOTAL
+   62. OBTENER TOTAL
 ========================================================= */
 
 function getCartTotal() {
@@ -3720,7 +4720,7 @@ function getCartTotal() {
 
 
 /* =========================================================
-   62. FAMILIA DISPONIBLE
+   63. FAMILIA DISPONIBLE
 ========================================================= */
 
 function openTeaFamily(
@@ -3750,7 +4750,7 @@ function openTeaFamily(
 
 
 /* =========================================================
-   63. ACCESO DIRECTO ROOIBOS
+   64. ACCESO DIRECTO ROOIBOS
 ========================================================= */
 
 function openRooibos() {
@@ -3763,7 +4763,7 @@ function openRooibos() {
 
 
 /* =========================================================
-   64. ACCESO DIRECTO TÉ ROJO
+   65. ACCESO DIRECTO TÉ ROJO
 ========================================================= */
 
 function openRedTea() {
@@ -3776,7 +4776,7 @@ function openRedTea() {
 
 
 /* =========================================================
-   65. ACCESO DIRECTO TÉ NEGRO
+   66. ACCESO DIRECTO TÉ NEGRO
 ========================================================= */
 
 function openBlackTea() {
@@ -3789,7 +4789,7 @@ function openBlackTea() {
 
 
 /* =========================================================
-   66. ACCESO DIRECTO MATCHA
+   67. ACCESO DIRECTO MATCHA
 ========================================================= */
 
 function openMatcha() {
@@ -3802,7 +4802,7 @@ function openMatcha() {
 
 
 /* =========================================================
-   67. ACCESO DIRECTO TÉ VERDE
+   68. ACCESO DIRECTO TÉ VERDE
 ========================================================= */
 
 function openGreenTea() {
@@ -3815,7 +4815,7 @@ function openGreenTea() {
 
 
 /* =========================================================
-   68. ACCESO DIRECTO TÉ BLANCO
+   69. ACCESO DIRECTO TÉ BLANCO
 ========================================================= */
 
 function openWhiteTea() {
@@ -3828,7 +4828,7 @@ function openWhiteTea() {
 
 
 /* =========================================================
-   69. ACCESO DIRECTO TÉ OOLONG
+   70. ACCESO DIRECTO TÉ OOLONG
 ========================================================= */
 
 function openOolong() {
@@ -3841,7 +4841,7 @@ function openOolong() {
 
 
 /* =========================================================
-   70. INICIALIZACIÓN
+   71. INICIALIZACIÓN
 ========================================================= */
 
 function initStore() {
@@ -3856,7 +4856,7 @@ function initStore() {
 
 
 /* =========================================================
-   71. INICIAR TIENDA
+   72. INICIAR TIENDA
 ========================================================= */
 
 initStore();
