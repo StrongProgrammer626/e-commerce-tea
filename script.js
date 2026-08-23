@@ -1887,6 +1887,568 @@ const infusionesControlPesoVariants = [
 
 
 /* =========================================================
+   07e. INFUSIONES Y TÉS DIGESTIVOS
+========================================================= */
+
+const infusionesDigestivasVariants = [
+
+    {
+        id: "digestivo-rooibos-digestivo",
+        name: "Rooibos Digestivo",
+        description:
+            "Rooibos de mezcla aromática.",
+        emoji: "🌱",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-manzanilla-dulce",
+        name: "Manzanilla Dulce",
+        description:
+            "Flores de manzanilla para una infusión suave y relajante.",
+        emoji: "🌼",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-menta-poleo",
+        name: "Menta Poleo",
+        description:
+            "Menta poleo de sabor fresco y mentolado.",
+        emoji: "🌱",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-adios-gases",
+        name: "Adiós Gases",
+        description:
+            "Mezcla de hierbas para reducir los gases.",
+        emoji: "💨",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-verde-menta-moruno",
+        name: "Té Verde Menta Moruno",
+        description:
+            "Té verde con refrescante menta moruna.",
+        emoji: "🌿",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-hierbabuena",
+        name: "Hierbabuena",
+        description:
+            "Hierbabuena fresca para infusiones digestivas.",
+        emoji: "🌱",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-melisa-hojas",
+        name: "Melisa Hojas",
+        description:
+            "Hojas de melisa con un delicado aroma cítrico.",
+        emoji: "🌿",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-anis-verde",
+        name: "Anís Verde",
+        description:
+            "Semillas de anís verde de sabor dulce y aromático.",
+        emoji: "⭐",
+        formats: [
+            { name: "120 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-jengibre-raiz",
+        name: "Jengibre Raíz",
+        description:
+            "Raíz de jengibre para infusiones picantes y estimulantes.",
+        emoji: "🫚",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-anis-estrellado",
+        name: "Anís Estrellado",
+        description:
+            "Estrellas de anís con intenso aroma.",
+        emoji: "🌟",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-rooibos-limon-griego",
+        name: "Rooibos Limón Griego",
+        description:
+            "Rooibos fresco con notas de limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-infusion-lima-limon",
+        name: "Infusión Lima Limón",
+        description:
+            "Infusión cítrica de lima y limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-hibisco-flor",
+        name: "Hibisco Flor",
+        description:
+            "Infusión de hibisco de color intenso y sabor ligeramente ácido.",
+        emoji: "🌺",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-calendula-flor",
+        name: "Caléndula Flor",
+        description:
+            "Pétalos de caléndula para infusiones suaves.",
+        emoji: "🌼",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-regaliz",
+        name: "Regaliz",
+        description:
+            "Raíz de regaliz para infusiones dulces.",
+        emoji: "🪵",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-hinojo-semillas",
+        name: "Hinojo Semillas",
+        description:
+            "Semillas de hinojo de sabor anisado y digestivo.",
+        emoji: "🌿",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-adios-atasco",
+        name: "Adiós Atasco",
+        description:
+            "Mezcla laxante suave para mejorar el tránsito.",
+        emoji: "🚽",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-te-lemongrass",
+        name: "Té Lemongrass",
+        description:
+            "Hierba limón (lemongrass) para infusiones cítricas.",
+        emoji: "🍋",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-tila",
+        name: "Tila",
+        description:
+            "Flores de tilo para infusiones relajantes.",
+        emoji: "🌳",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "digestivo-tomillo",
+        name: "Tomillo",
+        description:
+            "Tomillo seco para infusiones aromáticas.",
+        emoji: "🌿",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    }
+
+];
+
+
+/* =========================================================
+   07f. INFUSIONES Y TÉS RELAJANTES
+========================================================= */
+
+const infusionesRelajantesVariants = [
+
+    {
+        id: "relajante-rooibos-relax",
+        name: "Rooibos Relax",
+        description:
+            "Rooibos aromático de carácter suave.",
+        emoji: "🌿",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "relajante-tila",
+        name: "Tila",
+        description:
+            "Flores de tilo para infusiones relajantes.",
+        emoji: "🌳",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "relajante-manzanilla-dulce",
+        name: "Manzanilla Dulce",
+        description:
+            "Flores de manzanilla para una infusión suave y relajante.",
+        emoji: "🌼",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "relajante-infusion-dulces-suenos",
+        name: "Infusión Dulces Sueños",
+        description:
+            "Mezcla relajante para facilitar el descanso.",
+        emoji: "😴",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "relajante-melisa-hojas",
+        name: "Melisa hojas",
+        description:
+            "Hojas de melisa con un delicado aroma cítrico.",
+        emoji: "🌿",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "relajante-hiperico-cortado",
+        name: "Hipérico cortado",
+        description:
+            "Hierba de San Juan cortada para infusiones.",
+        emoji: "🌿",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "relajante-te-lemongrass",
+        name: "Té Lemongrass",
+        description:
+            "Hierba limón (lemongrass) para infusiones cítricas.",
+        emoji: "🍋",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "relajante-hibisco-flor",
+        name: "Hibisco Flor",
+        description:
+            "Infusión de hibisco de color intenso y sabor ligeramente ácido.",
+        emoji: "🌺",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "relajante-rooibos-chocolate-naranja",
+        name: "Rooibos Chocolate y Naranja",
+        description:
+            "Rooibos aromático con notas de chocolate y naranja.",
+        emoji: "🍫",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "relajante-rooibos-limon-griego",
+        name: "Rooibos Limón Griego",
+        description:
+            "Rooibos fresco con notas de limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "relajante-infusion-lima-limon",
+        name: "Infusión Lima Limón",
+        description:
+            "Infusión cítrica de lima y limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "relajante-infusion-armonia-bio",
+        name: "Infusión Armonía Bio",
+        description:
+            "Mezcla ecológica que aporta equilibrio y bienestar.",
+        emoji: "☮️",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "relajante-cascara-naranja",
+        name: "Cáscara de Naranja",
+        description:
+            "Cáscara de naranja seca para infusiones cítricas.",
+        emoji: "🍊",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "relajante-eucalipto",
+        name: "Eucalipto",
+        description:
+            "Hojas de eucalipto para infusiones balsámicas.",
+        emoji: "🌿",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    }
+
+];
+
+
+/* =========================================================
+   07g. INFUSIONES Y TÉS ENERGIZANTES
+========================================================= */
+
+const infusionesEnergizantesVariants = [
+
+    {
+        id: "energizante-negro-chocolate-vainilla",
+        name: "Té Negro Chocolate y Vainilla",
+        description:
+            "Té negro aromático con notas de chocolate y vainilla.",
+        emoji: "🍫",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "energizante-negro-afrodisiaco",
+        name: "Té Negro Afrodisíaco",
+        description:
+            "Té negro de aroma intenso y especiado.",
+        emoji: "❤️",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "energizante-matcha-asia",
+        name: "Té Verde Matcha Asia",
+        description:
+            "Té Matcha de origen asiático.",
+        emoji: "🍵",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "energizante-matcha-premium",
+        name: "Té Verde Matcha Premium",
+        description:
+            "Té Matcha de calidad premium.",
+        emoji: "🍵",
+        formats: [
+            { name: "40 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "energizante-rojo-chocolate-vainilla",
+        name: "Té Rojo Chocolate y Vainilla",
+        description:
+            "Té rojo con notas dulces de chocolate y vainilla.",
+        emoji: "🍫",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "energizante-rojo-chai-massai",
+        name: "Té Rojo Chai Massai",
+        description:
+            "Té rojo combinado con especias de estilo Chai.",
+        emoji: "🌶️",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "energizante-yerba-mate",
+        name: "Yerba Mate",
+        description:
+            "Hojas de yerba mate para preparar mate tradicional.",
+        emoji: "🧉",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "energizante-oolong-limon-jengibre",
+        name: "Té Oolong Limón y Jengibre",
+        description:
+            "Té Oolong con el toque cítrico del limón y el picante suave del jengibre.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "energizante-rooibos-chocolate-naranja",
+        name: "Rooibos Chocolate y Naranja",
+        description:
+            "Rooibos aromático con notas de chocolate y naranja.",
+        emoji: "🍫",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "energizante-rooibos-chai",
+        name: "Rooibos Chai",
+        description:
+            "Rooibos combinado con especias de estilo Chai.",
+        emoji: "☕",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "energizante-infusion-ayurveda",
+        name: "Infusión Ayurveda",
+        description:
+            "Mezcla de hierbas según la tradición ayurvédica.",
+        emoji: "☯️",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "energizante-verde-green-chai",
+        name: "Té Verde Green Chai",
+        description:
+            "Té verde combinado con una selección de especias.",
+        emoji: "🌱",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "energizante-verde-jengibre-limon-bio",
+        name: "Té Verde Jengibre y Limón Bio",
+        description:
+            "Té verde ecológico con jengibre y limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "energizante-jengibre-raiz",
+        name: "Jengibre Raíz",
+        description:
+            "Raíz de jengibre para infusiones picantes y estimulantes.",
+        emoji: "🫚",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    }
+
+];
+
+
+/* =========================================================
    08. CONFIGURACIÓN DE FAMILIAS
 ========================================================= */
 
@@ -2001,7 +2563,7 @@ const teaFamilies = {
         description:
             "Infusiones que favorecen una buena digestión.",
         icon: "🍵",
-        variants: []
+        variants: infusionesDigestivasVariants
     },
 
     "infusiones-relajantes": {
@@ -2010,7 +2572,7 @@ const teaFamilies = {
         description:
             "Infusiones suaves para momentos de calma.",
         icon: "😌",
-        variants: []
+        variants: infusionesRelajantesVariants
     },
 
     "infusiones-energizantes": {
@@ -2019,7 +2581,7 @@ const teaFamilies = {
         description:
             "Tés e infusiones que aportan vitalidad.",
         icon: "⚡",
-        variants: []
+        variants: infusionesEnergizantesVariants
     },
 
     "infusiones-ecologicas": {
