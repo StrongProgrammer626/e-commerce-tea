@@ -116,7 +116,7 @@ const products = [
     },
 
     /* =========================================================
-       NUEVA CATEGORÍA: INFUSIONES Y ESPECIAS
+       CATEGORÍA: INFUSIONES Y ESPECIAS
     ========================================================= */
 
     {
@@ -191,6 +191,19 @@ const products = [
         family: "infusiones-relajantes"
     },
 
+    /* NUEVA CATEGORÍA DETOX (antes de Energizantes) */
+    {
+        id: "infusiones-tes-detox",
+        name: "Infusiones y Tés Detox",
+        category: "infusiones",
+        price: 0,
+        description:
+            "Infusiones depurativas y desintoxicantes.",
+        emoji: "🍃",
+        bg: "product-bg-17",
+        family: "infusiones-tes-detox"
+    },
+
     {
         id: "infusiones-energizantes",
         name: "Infusiones y Tés Energizantes",
@@ -201,18 +214,6 @@ const products = [
         emoji: "⚡",
         bg: "product-bg-16",
         family: "infusiones-energizantes"
-    },
-
-    {
-        id: "infusiones-ecologicas",
-        name: "Infusiones Ecológicas",
-        category: "infusiones",
-        price: 0,
-        description:
-            "Infusiones procedentes de cultivo ecológico certificado.",
-        emoji: "🌱",
-        bg: "product-bg-17",
-        family: "infusiones-ecologicas"
     },
 
     {
@@ -240,7 +241,7 @@ const products = [
     },
 
     /* =========================================================
-       FIN NUEVA CATEGORÍA
+       FIN CATEGORÍA INFUSIONES Y ESPECIAS
     ========================================================= */
 
     {
@@ -2284,7 +2285,205 @@ const infusionesRelajantesVariants = [
 
 
 /* =========================================================
-   07g. INFUSIONES Y TÉS ENERGIZANTES
+   07g. INFUSIONES Y TÉS DETOX
+========================================================= */
+
+const infusionesDetoxVariants = [
+
+    {
+        id: "detox-verde-drena-liquidos",
+        name: "Té Verde Drena líquidos",
+        description:
+            "Mezcla aromática pensada para acompañar tu rutina.",
+        emoji: "💧",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-matcha-asia",
+        name: "Té Verde Matcha Asia",
+        description:
+            "Té Matcha de origen asiático.",
+        emoji: "🍵",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-matcha-premium",
+        name: "Té Verde Matcha Premium",
+        description:
+            "Té Matcha de calidad premium.",
+        emoji: "🍵",
+        formats: [
+            { name: "40 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-cola-caballo",
+        name: "Cola de Caballo",
+        description:
+            "Cola de caballo para infusiones depurativas.",
+        emoji: "🌿",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-verde-jengibre-limon-bio",
+        name: "Té Verde Jengibre y Limón Bio",
+        description:
+            "Té verde ecológico con jengibre y limón.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-oolong-limon-jengibre",
+        name: "Té Oolong Limón y Jengibre",
+        description:
+            "Té Oolong con el toque cítrico del limón y el picante suave del jengibre.",
+        emoji: "🍋",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-adios-atasco",
+        name: "Adiós Atasco",
+        description:
+            "Mezcla laxante suave para mejorar el tránsito.",
+        emoji: "🚽",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-te-lemongrass",
+        name: "Té Lemongrass",
+        description:
+            "Hierba limón (lemongrass) para infusiones cítricas.",
+        emoji: "🍋",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-jengibre",
+        name: "Jengibre",
+        description:
+            "Raíz de jengibre para infusiones picantes y estimulantes.",
+        emoji: "🫚",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-rooibos-digestivo",
+        name: "Rooibos Digestivo",
+        description:
+            "Rooibos de mezcla aromática.",
+        emoji: "🌱",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-hibisco-flor",
+        name: "Hibisco Flor",
+        description:
+            "Infusión de hibisco de color intenso y sabor ligeramente ácido.",
+        emoji: "🌺",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-manzanilla-dulce",
+        name: "Manzanilla Dulce",
+        description:
+            "Flores de manzanilla para una infusión suave y relajante.",
+        emoji: "🌼",
+        formats: [
+            { name: "50 g", price: 0 },
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-cascara-naranja",
+        name: "Cáscara de Naranja",
+        description:
+            "Cáscara de naranja seca para infusiones cítricas.",
+        emoji: "🍊",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-anis-verde",
+        name: "Anís Verde",
+        description:
+            "Semillas de anís verde de sabor dulce y aromático.",
+        emoji: "⭐",
+        formats: [
+            { name: "120 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-anis-estrellado",
+        name: "Anís Estrellado",
+        description:
+            "Estrellas de anís con intenso aroma.",
+        emoji: "🌟",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-curcuma",
+        name: "Cúrcuma",
+        description:
+            "Cúrcuma molida para infusiones y preparaciones.",
+        emoji: "🟠",
+        formats: [
+            { name: "150 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "detox-romero",
+        name: "Romero",
+        description:
+            "Romero seco para infusiones aromáticas.",
+        emoji: "🌿",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    }
+
+];
+
+
+/* =========================================================
+   07h. INFUSIONES Y TÉS ENERGIZANTES
 ========================================================= */
 
 const infusionesEnergizantesVariants = [
@@ -2575,6 +2774,15 @@ const teaFamilies = {
         variants: infusionesRelajantesVariants
     },
 
+    "infusiones-tes-detox": {
+        title: "Infusiones y Tés Detox",
+        eyebrow: "DETOX",
+        description:
+            "Infusiones depurativas y desintoxicantes.",
+        icon: "🍃",
+        variants: infusionesDetoxVariants
+    },
+
     "infusiones-energizantes": {
         title: "Infusiones y Tés Energizantes",
         eyebrow: "ENERGIZANTES",
@@ -2582,15 +2790,6 @@ const teaFamilies = {
             "Tés e infusiones que aportan vitalidad.",
         icon: "⚡",
         variants: infusionesEnergizantesVariants
-    },
-
-    "infusiones-ecologicas": {
-        title: "Infusiones Ecológicas",
-        eyebrow: "ECOLÓGICAS",
-        description:
-            "Infusiones de cultivo ecológico certificado.",
-        icon: "🌱",
-        variants: []
     },
 
     "especias-y-mas": {
