@@ -191,7 +191,6 @@ const products = [
         family: "infusiones-relajantes"
     },
 
-    /* NUEVA CATEGORÍA DETOX (antes de Energizantes) */
     {
         id: "infusiones-tes-detox",
         name: "Infusiones y Tés Detox",
@@ -2648,6 +2647,301 @@ const infusionesEnergizantesVariants = [
 
 
 /* =========================================================
+   07i. ESPECIAS Y MÁS
+========================================================= */
+
+const especiasYMasVariants = [
+
+    {
+        id: "especia-barbacoa-brasas",
+        name: "Barbacoa Brasas",
+        description:
+            "Mezcla de especias para barbacoa y brasas.",
+        emoji: "🍖",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-comino",
+        name: "Comino",
+        description:
+            "Comino en grano o molido, imprescindible en la cocina.",
+        emoji: "🌰",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-oregano",
+        name: "Orégano",
+        description:
+            "Orégano seco aromático para tus platos.",
+        emoji: "🌿",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-curcuma",
+        name: "Cúrcuma",
+        description:
+            "Cúrcuma molida de color intenso y sabor terroso.",
+        emoji: "🟠",
+        formats: [
+            { name: "150 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-ajo-perejil-oregano",
+        name: "Ajo, Perejil y Orégano",
+        description:
+            "Mezcla clásica de ajo, perejil y orégano.",
+        emoji: "🧄",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-albahaca",
+        name: "Albahaca",
+        description:
+            "Albahaca seca para dar frescura a tus recetas.",
+        emoji: "🌿",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-cilantro",
+        name: "Cilantro",
+        description:
+            "Cilantro seco para platos llenos de sabor.",
+        emoji: "🌱",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-laurel",
+        name: "Laurel",
+        description:
+            "Hojas de laurel secas para guisos y caldos.",
+        emoji: "🍃",
+        formats: [
+            { name: "120 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-chimichurri",
+        name: "Condimento Chimichurri",
+        description:
+            "Mezcla para preparar el auténtico chimichurri.",
+        emoji: "🌶️",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-hierbas-provenzales",
+        name: "Hierbas Provenzales",
+        description:
+            "Mezcla de hierbas al estilo provenzal.",
+        emoji: "🌿",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-perejil",
+        name: "Perejil",
+        description:
+            "Perejil seco para condimentar tus platos.",
+        emoji: "🌿",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-pimienta-negra",
+        name: "Pimienta Negra",
+        description:
+            "Pimienta negra en grano o molida.",
+        emoji: "⚫",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-herbamare-original",
+        name: "Herbamare Original",
+        description:
+            "Sal de hierbas y verduras ecológicas.",
+        emoji: "🧂",
+        formats: [
+            { name: "250 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-canela-ceylan",
+        name: "Canela Ceylan",
+        description:
+            "Canela de Ceilán en rama o molida.",
+        emoji: "🪵",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-herbamare-caldo",
+        name: "Herbamare Caldo Vegetal",
+        description:
+            "Caldo vegetal en polvo ecológico.",
+        emoji: "🍲",
+        formats: [
+            { name: "250 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-anis-verde",
+        name: "Anís Verde",
+        description:
+            "Semillas de anís verde de sabor dulce.",
+        emoji: "⭐",
+        formats: [
+            { name: "120 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-tomillo",
+        name: "Tomillo",
+        description:
+            "Tomillo seco para todo tipo de platos.",
+        emoji: "🌿",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-anis-estrellado",
+        name: "Anís Estrellado",
+        description:
+            "Anís estrellado entero de intenso aroma.",
+        emoji: "🌟",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-romero",
+        name: "Romero",
+        description:
+            "Romero seco para carnes y guisos.",
+        emoji: "🌿",
+        formats: [
+            { name: "70 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-jengibre-raiz",
+        name: "Jengibre Raíz",
+        description:
+            "Raíz de jengibre seca o en polvo.",
+        emoji: "🫚",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-hinojo-semillas",
+        name: "Hinojo Semillas",
+        description:
+            "Semillas de hinojo de sabor anisado.",
+        emoji: "🌿",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-chia",
+        name: "Semillas de Chía",
+        description:
+            "Semillas de chía ricas en omega-3.",
+        emoji: "🌾",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-lino-dorado",
+        name: "Semilla de Lino Dorado",
+        description:
+            "Semillas de lino dorado, fuente de fibra.",
+        emoji: "🌾",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-lino-marron",
+        name: "Semillas de Lino Marrón",
+        description:
+            "Semillas de lino marrón, nutritivas y versátiles.",
+        emoji: "🌾",
+        formats: [
+            { name: "80 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-sesamo-blanco",
+        name: "Sésamo Blanco",
+        description:
+            "Semillas de sésamo blanco para panes y ensaladas.",
+        emoji: "⚪",
+        formats: [
+            { name: "100 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "especia-alpiste",
+        name: "Alpiste",
+        description:
+            "Semillas de alpiste para consumo alimentario.",
+        emoji: "🌾",
+        formats: [
+            { name: "200 g", price: 0 }
+        ]
+    }
+
+];
+
+
+/* =========================================================
    08. CONFIGURACIÓN DE FAMILIAS
 ========================================================= */
 
@@ -2798,7 +3092,7 @@ const teaFamilies = {
         description:
             "Especias seleccionadas y condimentos naturales.",
         icon: "🧂",
-        variants: []
+        variants: especiasYMasVariants
     },
 
     "alimentos-funcionales": {
