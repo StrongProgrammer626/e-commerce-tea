@@ -2942,6 +2942,169 @@ const especiasYMasVariants = [
 
 
 /* =========================================================
+   07j. ALIMENTOS FUNCIONALES
+========================================================= */
+
+const alimentosFuncionalesVariants = [
+
+    {
+        id: "funcional-gelatina-polvo",
+        name: "Gelatina en polvo - Tesymas",
+        description:
+            "Gelatina neutra en polvo para postres y recetas.",
+        emoji: "🍮",
+        formats: [
+            { name: "200 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "funcional-cacao-polvo",
+        name: "Cacao en polvo - Tesymas",
+        description:
+            "Cacao puro en polvo para bebidas y repostería.",
+        emoji: "🍫",
+        formats: [
+            { name: "250 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "funcional-carne-pimiento-choricero",
+        name: "Carne de Pimiento choricero - Especias El Reloj",
+        description:
+            "Pimiento choricero seco para dar sabor a tus platos.",
+        emoji: "🌶️",
+        formats: [
+            { name: "200 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "funcional-muesli-multicereales",
+        name: "Muesli Multicereales - Tesymas",
+        description:
+            "Mezcla de cereales y frutos secos para el desayuno.",
+        emoji: "🥣",
+        formats: [
+            { name: "200 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "funcional-levadura-nutricional",
+        name: "Levadura Nutricional High Vita-Energy Feelings B12",
+        description:
+            "Levadura nutricional con vitamina B12.",
+        emoji: "🌟",
+        formats: [
+            { name: "250 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "funcional-colageno-magnesio-capsulas",
+        name: "Colágeno con Magnesio - Ana Maria La Justicia",
+        description:
+            "Colágeno con magnesio en cápsulas.",
+        emoji: "💊",
+        formats: [
+            { name: "450 mg", price: 0 }
+        ]
+    },
+
+    {
+        id: "funcional-colageno-magnesio-polvo",
+        name: "Colágeno con Magnesio polvo - Ana María la Justicia",
+        description:
+            "Colágeno con magnesio en polvo.",
+        emoji: "🥛",
+        formats: [
+            { name: "350 g", price: 0 }
+        ]
+    },
+
+    {
+        id: "funcional-espiginjal",
+        name: "Espiginjal Espirulina, Ginseng Coreano y Jalea Real - Marnys",
+        description:
+            "Complemento alimenticio con espirulina, ginseng y jalea real.",
+        emoji: "💊",
+        formats: [
+            { name: "60 cápsulas", price: 0 }
+        ]
+    },
+
+    {
+        id: "funcional-hepalive",
+        name: "Hepalive - Marnys",
+        description:
+            "Jarabe natural para el bienestar hepático.",
+        emoji: "🍶",
+        formats: [
+            { name: "250 ml", price: 0 }
+        ]
+    },
+
+    {
+        id: "funcional-colagen-b-plus",
+        name: "Colagen B Plus",
+        description:
+            "Complemento de colágeno con vitaminas.",
+        emoji: "💊",
+        formats: [
+            { name: "90 cápsulas", price: 0 }
+        ]
+    },
+
+    {
+        id: "funcional-spirulina",
+        name: "Spirulina",
+        description:
+            "Alga espirulina en cápsulas.",
+        emoji: "🌿",
+        formats: [
+            { name: "80 cápsulas", price: 0 }
+        ]
+    },
+
+    {
+        id: "funcional-omega-3-plus",
+        name: "Omega 3 Plus",
+        description:
+            "Ácidos grasos omega 3 en cápsulas.",
+        emoji: "🐟",
+        formats: [
+            { name: "110 cápsulas", price: 0 }
+        ]
+    },
+
+    {
+        id: "funcional-levacer-b-plus",
+        name: "Levacer B Plus",
+        description:
+            "Complemento vitamínico del grupo B.",
+        emoji: "💊",
+        formats: [
+            { name: "80 cápsulas", price: 0 }
+        ]
+    },
+
+    {
+        id: "funcional-onagra-plus",
+        name: "Onagra Plus",
+        description:
+            "Aceite de onagra en cápsulas.",
+        emoji: "🌸",
+        formats: [
+            { name: "90 cápsulas", price: 0 }
+        ]
+    }
+
+];
+
+
+/* =========================================================
    08. CONFIGURACIÓN DE FAMILIAS
 ========================================================= */
 
@@ -3101,7 +3264,7 @@ const teaFamilies = {
         description:
             "Productos naturales con beneficios específicos.",
         icon: "🥗",
-        variants: []
+        variants: alimentosFuncionalesVariants
     }
 
 };
