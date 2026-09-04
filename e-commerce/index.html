@@ -1156,6 +1156,72 @@
 
 
 <!-- =====================================================
+     MODAL OPINIÓN (NUEVO)
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="reviewModal"
+>
+
+    <div class="modal review-modal">
+
+        <h2>
+            Valorar producto
+        </h2>
+
+        <p
+            id="reviewProductName"
+            style="font-weight:600; color:var(--green-dark);"
+        >
+        </p>
+
+
+        <div class="review-stars-selector">
+
+            <span class="review-star" data-value="1">★</span>
+            <span class="review-star" data-value="2">★</span>
+            <span class="review-star" data-value="3">★</span>
+            <span class="review-star" data-value="4">★</span>
+            <span class="review-star" data-value="5">★</span>
+
+        </div>
+
+
+        <textarea
+            id="reviewText"
+            rows="3"
+            placeholder="Escribe tu opinión (opcional)"
+        ></textarea>
+
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeReview"
+            >
+                Cancelar
+            </button>
+
+            <button
+                type="button"
+                class="modal-submit"
+                id="submitReview"
+            >
+                Enviar
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
      TOAST
 ===================================================== -->
 

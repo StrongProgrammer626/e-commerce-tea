@@ -2251,6 +2251,112 @@ img {
 
 
 /* =========================================================
+   REVIEWS / RATING (NUEVO)
+========================================================= */
+
+.rating-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.rating-stars {
+    display: inline-flex;
+    gap: 2px;
+    font-size: 16px;
+    color: #ccc;
+    letter-spacing: 1px;
+}
+
+.rating-stars .filled {
+    color: #f5b301;
+}
+
+.rating-count {
+    font-size: 11px;
+    color: var(--gray);
+}
+
+.product-availability {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 11px;
+    gap: 8px;
+}
+
+.availability-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.availability-status.available {
+    color: #2e7d32;
+}
+
+.availability-status.unavailable {
+    color: #c62828;
+}
+
+.sku-label {
+    color: var(--gray);
+    font-size: 10px;
+}
+
+.review-button {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 10px;
+    color: var(--green-dark);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.review-button:hover {
+    background: var(--green-soft);
+}
+
+/* Modal opinión */
+.review-modal {
+    max-width: 420px;
+}
+
+.review-stars-selector {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    font-size: 32px;
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+.review-star {
+    color: #ccc;
+    transition: color .15s ease;
+}
+
+.review-star.active {
+    color: #f5b301;
+}
+
+.review-modal textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+    background: var(--cream);
+    font-size: 11px;
+    resize: vertical;
+}
+
+
+/* =========================================================
    RESPONSIVE
 ========================================================= */
 

@@ -278,6 +278,16 @@ const products = [
 
 ];
 
+/* =========================================================
+   AÑADIR CAMPOS POR DEFECTO A PRODUCTOS PRINCIPALES
+========================================================= */
+
+products.forEach(p => {
+    p.rating = p.rating || 4.5;
+    p.reviews = p.reviews || 0;
+    p.available = p.available !== undefined ? p.available : true;
+    p.sku = p.sku || "TJ0021";
+});
 
 /* =========================================================
    02. TÉ VERDE
@@ -3173,10 +3183,6 @@ const teaFamilies = {
         variants: oolongTeaVariants
     },
 
-    /* =========================================================
-       FAMILIAS DE INFUSIONES Y ESPECIAS
-    ========================================================= */
-
     "infusiones-herbales": {
         title: "Infusiones Herbales",
         eyebrow: "INFUSIONES HERBALES",
@@ -3271,6 +3277,21 @@ const teaFamilies = {
 
 
 /* =========================================================
+   AÑADIR CAMPOS POR DEFECTO A VARIANTES DE FAMILIA
+========================================================= */
+
+for (const familyKey in teaFamilies) {
+    const family = teaFamilies[familyKey];
+    family.variants.forEach(v => {
+        v.rating = v.rating || 4.5;
+        v.reviews = v.reviews || 0;
+        v.available = v.available !== undefined ? v.available : true;
+        v.sku = v.sku || "TJ0021";
+    });
+}
+
+
+/* =========================================================
    09. ESTADO GLOBAL
 ========================================================= */
 
@@ -3284,78 +3305,46 @@ let currentFamilySearch = "";
 
 let toastTimer = null;
 
-
 /* =========================================================
    10. ELEMENTOS DEL DOM
 ========================================================= */
 
-const productsGrid =
-    document.getElementById("productsGrid");
+const productsGrid = document.getElementById("productsGrid");
+const emptyProducts = document.getElementById("emptyProducts");
+const mainCatalog = document.getElementById("mainCatalog");
+const greenTeaFamily = document.getElementById("greenTeaFamily");
+const greenTeaGrid = document.getElementById("greenTeaGrid");
+const emptyGreenTea = document.getElementById("emptyGreenTea");
+const greenTeaSearch = document.getElementById("greenTeaSearch");
+const greenTeaCounter = document.getElementById("greenTeaCounter");
+const cartOverlay = document.getElementById("cartOverlay");
+const cartItems = document.getElementById("cartItems");
+const cartFooter = document.getElementById("cartFooter");
+const cartCount = document.getElementById("cartCount");
+const cartSubtotal = document.getElementById("cartSubtotal");
+const cartShipping = document.getElementById("cartShipping");
+const cartTotal = document.getElementById("cartTotal");
+const shippingMessage = document.getElementById("shippingMessage");
+const toast = document.getElementById("toast");
+const checkoutModal = document.getElementById("checkoutModal");
 
-const emptyProducts =
-    document.getElementById("emptyProducts");
-
-const mainCatalog =
-    document.getElementById("mainCatalog");
-
-const greenTeaFamily =
-    document.getElementById("greenTeaFamily");
-
-const greenTeaGrid =
-    document.getElementById("greenTeaGrid");
-
-const emptyGreenTea =
-    document.getElementById("emptyGreenTea");
-
-const greenTeaSearch =
-    document.getElementById("greenTeaSearch");
-
-const greenTeaCounter =
-    document.getElementById("greenTeaCounter");
-
-const cartOverlay =
-    document.getElementById("cartOverlay");
-
-const cartItems =
-    document.getElementById("cartItems");
-
-const cartFooter =
-    document.getElementById("cartFooter");
-
-const cartCount =
-    document.getElementById("cartCount");
-
-const cartSubtotal =
-    document.getElementById("cartSubtotal");
-
-const cartShipping =
-    document.getElementById("cartShipping");
-
-const cartTotal =
-    document.getElementById("cartTotal");
-
-const shippingMessage =
-    document.getElementById("shippingMessage");
-
-const toast =
-    document.getElementById("toast");
-
-const checkoutModal =
-    document.getElementById("checkoutModal");
+// Nuevos elementos para opiniones
+const reviewModal = document.getElementById("reviewModal");
+const reviewProductName = document.getElementById("reviewProductName");
+const reviewStars = document.querySelectorAll(".review-star");
+const reviewText = document.getElementById("reviewText");
+const closeReviewBtn = document.getElementById("closeReview");
+const submitReviewBtn = document.getElementById("submitReview");
 
 
 /* =========================================================
    11. FORMATO DE MONEDA
 ========================================================= */
 
-const money =
-    new Intl.NumberFormat(
-        "es-ES",
-        {
-            style: "currency",
-            currency: "EUR"
-        }
-    );
+const money = new Intl.NumberFormat("es-ES", {
+    style: "currency",
+    currency: "EUR"
+});
 
 
 /* =========================================================
@@ -3363,116 +3352,86 @@ const money =
 ========================================================= */
 
 function saveCart() {
-
-    localStorage.setItem(
-        "alma-natural-cart",
-        JSON.stringify(cart)
-    );
-
+    localStorage.setItem("alma-natural-cart", JSON.stringify(cart));
 }
 
-
-/* =========================================================
-   13. CARGAR CARRITO
-========================================================= */
-
 function loadCart() {
-
-    const saved =
-        localStorage.getItem(
-            "alma-natural-cart"
-        );
-
+    const saved = localStorage.getItem("alma-natural-cart");
     if (!saved) {
         cart = [];
         return;
     }
-
     try {
-
-        const parsed =
-            JSON.parse(saved);
-
-        cart =
-            Array.isArray(parsed)
-                ? parsed
-                : [];
-
+        const parsed = JSON.parse(saved);
+        cart = Array.isArray(parsed) ? parsed : [];
     } catch (error) {
-
         cart = [];
-
     }
-
 }
 
 
 /* =========================================================
-   14. NOTIFICACIONES
+   13. NOTIFICACIONES
 ========================================================= */
 
 function showToast(message) {
-
-    if (!toast) {
-        return;
-    }
-
-    toast.textContent =
-        message;
-
-    toast.classList.add(
-        "show"
-    );
-
-    clearTimeout(
-        toastTimer
-    );
-
-    toastTimer =
-        setTimeout(
-            () => {
-
-                toast.classList.remove(
-                    "show"
-                );
-
-            },
-            2500
-        );
-
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2500);
 }
 
 
 /* =========================================================
-   15. NOMBRE DE CATEGORÍA
+   14. NOMBRE DE CATEGORÍA
 ========================================================= */
 
 function getCategoryName(category) {
-
     const names = {
-
-        tes:
-            "Tés y más",
-
-        infusiones:
-            "Infusiones y Especias",
-
-        belleza:
-            "Belleza y Cosmética",
-
-        hogar:
-            "Hogar, Minerales y Otros",
-
-        regalos:
-            "Regalos y Ofertas"
-
+        tes: "Tés y más",
+        infusiones: "Infusiones y Especias",
+        belleza: "Belleza y Cosmética",
+        hogar: "Hogar, Minerales y Otros",
+        regalos: "Regalos y Ofertas"
     };
+    return names[category] || category;
+}
 
-    return (
-        names[category] ||
-        category
-    );
 
+/* =========================================================
+   15. FUNCIONES DE RESEÑAS Y VALORACIÓN
+========================================================= */
+
+function getReviews(productId) {
+    const data = localStorage.getItem(`reviews_${productId}`);
+    return data ? JSON.parse(data) : [];
+}
+
+function saveReview(productId, rating, text) {
+    const reviews = getReviews(productId);
+    reviews.push({ rating, text, date: new Date().toISOString() });
+    localStorage.setItem(`reviews_${productId}`, JSON.stringify(reviews));
+    return reviews;
+}
+
+function getAverageRating(reviews) {
+    if (!reviews.length) return 0;
+    const sum = reviews.reduce((acc, r) => acc + r.rating, 0);
+    return sum / reviews.length;
+}
+
+function renderStars(rating) {
+    const full = Math.floor(rating);
+    const half = rating % 1 >= 0.5 ? 1 : 0;
+    const empty = 5 - full - half;
+    let stars = '';
+    for (let i = 0; i < full; i++) stars += '<span class="filled">★</span>';
+    if (half) stars += '<span class="filled">★</span>';
+    for (let i = 0; i < empty; i++) stars += '<span>★</span>';
+    return stars;
 }
 
 
@@ -3481,256 +3440,87 @@ function getCategoryName(category) {
 ========================================================= */
 
 function renderProducts() {
+    if (!productsGrid) return;
 
-    if (!productsGrid) {
-        return;
-    }
+    const searchInput = document.getElementById("searchInput");
+    const search = searchInput ? searchInput.value.toLowerCase().trim() : "";
 
-    const searchInput =
-        document.getElementById(
-            "searchInput"
-        );
+    let filtered = products.filter(product => {
+        const categoryMatch = currentCategory === "todos" || product.category === currentCategory;
+        const searchMatch = product.name.toLowerCase().includes(search) ||
+                            product.description.toLowerCase().includes(search);
+        return categoryMatch && searchMatch;
+    });
 
-    const search =
-        searchInput
-            ? searchInput.value
-                .toLowerCase()
-                .trim()
-            : "";
+    const sortElement = document.getElementById("sortProducts");
+    const sort = sortElement ? sortElement.value : "default";
 
-    let filtered =
-        products.filter(
-            product => {
+    if (sort === "price-low") filtered.sort((a, b) => a.price - b.price);
+    if (sort === "price-high") filtered.sort((a, b) => b.price - a.price);
+    if (sort === "name") filtered.sort((a, b) => a.name.localeCompare(b.name, "es"));
 
-                const categoryMatch =
-                    currentCategory === "todos" ||
-                    product.category ===
-                        currentCategory;
-
-                const searchMatch =
-                    product.name
-                        .toLowerCase()
-                        .includes(search) ||
-                    product.description
-                        .toLowerCase()
-                        .includes(search);
-
-                return (
-                    categoryMatch &&
-                    searchMatch
-                );
-
-            }
-        );
-
-
-    const sortElement =
-        document.getElementById(
-            "sortProducts"
-        );
-
-    const sort =
-        sortElement
-            ? sortElement.value
-            : "default";
-
-
-    if (sort === "price-low") {
-
-        filtered.sort(
-            (a, b) =>
-                a.price - b.price
-        );
-
-    }
-
-
-    if (sort === "price-high") {
-
-        filtered.sort(
-            (a, b) =>
-                b.price - a.price
-        );
-
-    }
-
-
-    if (sort === "name") {
-
-        filtered.sort(
-            (a, b) =>
-                a.name.localeCompare(
-                    b.name,
-                    "es"
-                )
-        );
-
-    }
-
-
-    productsGrid.innerHTML =
-        "";
-
+    productsGrid.innerHTML = "";
 
     if (!filtered.length) {
-
-        emptyProducts?.classList.add(
-            "show"
-        );
-
+        emptyProducts?.classList.add("show");
         return;
-
     }
 
+    emptyProducts?.classList.remove("show");
 
-    emptyProducts?.classList.remove(
-        "show"
-    );
+    filtered.forEach(product => {
+        const card = document.createElement("article");
+        card.className = "product-card";
 
+        const priceText = product.family ? "Ver variedades" : money.format(product.price);
 
-    filtered.forEach(
-        product => {
+        let reviewBlock = '';
+        if (!product.family) {
+            const reviews = getReviews(product.id);
+            const avg = reviews.length ? getAverageRating(reviews) : product.rating;
+            const stars = renderStars(avg);
+            const availabilityText = product.available ? 'Sí' : 'No';
+            const availabilityClass = product.available ? 'available' : 'unavailable';
 
-            const card =
-                document.createElement(
-                    "article"
-                );
-
-            card.className =
-                "product-card";
-
-
-            const priceText =
-                product.family
-
-                    ? "Ver variedades"
-
-                    : money.format(
-                        product.price
-                    );
-
-
-            card.innerHTML = `
-
-                <div
-                    class="product-image ${
-                        product.bg || ""
-                    }"
-                >
-
-                    ${
-                        product.family
-                            ? `
-                                <span
-                                    class="product-badge"
-                                >
-                                    VARIEDADES
-                                </span>
-                            `
-                            : ""
-                    }
-
-                    <span
-                        class="product-emoji"
-                    >
-                        ${product.emoji}
-                    </span>
-
+            reviewBlock = `
+                <div class="rating-container">
+                    <span class="rating-stars">${stars}</span>
+                    <span class="rating-count">${reviews.length} opiniones</span>
                 </div>
-
-
-                <div
-                    class="product-info"
-                >
-
-                    <span
-                        class="product-category"
-                    >
-                        ${getCategoryName(
-                            product.category
-                        )}
+                <div class="product-availability">
+                    <span class="availability-status ${availabilityClass}">
+                        ● ${availabilityText}
                     </span>
-
-
-                    <h3
-                        class="product-name"
-                    >
-                        ${product.name}
-                    </h3>
-
-
-                    <p
-                        class="product-description"
-                    >
-                        ${product.description}
-                    </p>
-
-
-                    <div
-                        class="product-bottom"
-                    >
-
-                        <strong
-                            class="product-price"
-                        >
-                            ${priceText}
-                        </strong>
-
-
-                        ${
-                            product.family
-
-                                ? `
-                                    <button
-                                        class="add-button family-open"
-                                        data-family="${product.family}"
-                                    >
-                                        →
-                                    </button>
-                                `
-
-                                : `
-                                    <button
-                                        class="add-button"
-                                        data-add="${product.id}"
-                                    >
-                                        +
-                                    </button>
-                                `
-                        }
-
-                    </div>
-
-
-                    ${
-                        product.family
-
-                            ? `
-                                <div
-                                    class="family-link"
-                                >
-                                    Ver variedades
-                                </div>
-                            `
-
-                            : ""
-                    }
-
+                    <span class="sku-label">SKU: ${product.sku}</span>
                 </div>
-
+                <button class="review-button" data-review-id="${product.id}">Opinar</button>
             `;
-
-
-            productsGrid.appendChild(
-                card
-            );
-
         }
-    );
 
+        card.innerHTML = `
+            <div class="product-image ${product.bg || ""}">
+                ${product.family ? '<span class="product-badge">VARIEDADES</span>' : ""}
+                <span class="product-emoji">${product.emoji}</span>
+            </div>
+            <div class="product-info">
+                <span class="product-category">${getCategoryName(product.category)}</span>
+                <h3 class="product-name">${product.name}</h3>
+                <p class="product-description">${product.description}</p>
+                ${reviewBlock}
+                <div class="product-bottom">
+                    <strong class="product-price">${priceText}</strong>
+                    ${product.family
+                        ? `<button class="add-button family-open" data-family="${product.family}">→</button>`
+                        : `<button class="add-button" data-add="${product.id}">+</button>`}
+                </div>
+                ${product.family ? '<div class="family-link">Ver variedades</div>' : ""}
+            </div>
+        `;
+
+        productsGrid.appendChild(card);
+    });
 
     attachProductEvents();
-
 }
 
 
@@ -3739,54 +3529,26 @@ function renderProducts() {
 ========================================================= */
 
 function attachProductEvents() {
+    document.querySelectorAll("[data-add]").forEach(button => {
+        button.addEventListener("click", event => {
+            event.stopPropagation();
+            addToCart(button.dataset.add);
+        });
+    });
 
-    document
-        .querySelectorAll(
-            "[data-add]"
-        )
-        .forEach(
-            button => {
+    document.querySelectorAll(".family-open").forEach(button => {
+        button.addEventListener("click", event => {
+            event.stopPropagation();
+            openFamily(button.dataset.family);
+        });
+    });
 
-                button.addEventListener(
-                    "click",
-                    event => {
-
-                        event.stopPropagation();
-
-                        addToCart(
-                            button.dataset.add
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-    document
-        .querySelectorAll(
-            ".family-open"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    event => {
-
-                        event.stopPropagation();
-
-                        openFamily(
-                            button.dataset.family
-                        );
-
-                    }
-                );
-
-            }
-        );
-
+    document.querySelectorAll(".review-button").forEach(btn => {
+        btn.addEventListener("click", event => {
+            event.stopPropagation();
+            openReviewModal(btn.dataset.reviewId);
+        });
+    });
 }
 
 
@@ -3795,102 +3557,30 @@ function attachProductEvents() {
 ========================================================= */
 
 function openFamily(family) {
+    const selected = teaFamilies[family];
+    if (!selected) return;
 
-    const selected =
-        teaFamilies[family];
+    currentFamily = family;
+    currentFamilySearch = "";
 
-    if (!selected) {
-        return;
-    }
+    if (mainCatalog) mainCatalog.style.display = "none";
+    if (greenTeaFamily) greenTeaFamily.classList.add("active");
 
+    const icon = greenTeaFamily?.querySelector(".family-icon");
+    const eyebrow = greenTeaFamily?.querySelector(".eyebrow");
+    const title = greenTeaFamily?.querySelector(".family-header h2");
+    const description = greenTeaFamily?.querySelector(".family-header p");
 
-    currentFamily =
-        family;
+    if (icon) icon.textContent = selected.icon;
+    if (eyebrow) eyebrow.textContent = selected.eyebrow;
+    if (title) title.textContent = selected.title;
+    if (description) description.textContent = selected.description;
 
-    currentFamilySearch =
-        "";
-
-
-    if (mainCatalog) {
-
-        mainCatalog.style.display =
-            "none";
-
-    }
-
-
-    if (greenTeaFamily) {
-
-        greenTeaFamily.classList.add(
-            "active"
-        );
-
-    }
-
-
-    const icon =
-        greenTeaFamily?.querySelector(
-            ".family-icon"
-        );
-
-    const eyebrow =
-        greenTeaFamily?.querySelector(
-            ".eyebrow"
-        );
-
-    const title =
-        greenTeaFamily?.querySelector(
-            ".family-header h2"
-        );
-
-    const description =
-        greenTeaFamily?.querySelector(
-            ".family-header p"
-        );
-
-
-    if (icon) {
-        icon.textContent =
-            selected.icon;
-    }
-
-
-    if (eyebrow) {
-        eyebrow.textContent =
-            selected.eyebrow;
-    }
-
-
-    if (title) {
-        title.textContent =
-            selected.title;
-    }
-
-
-    if (description) {
-        description.textContent =
-            selected.description;
-    }
-
-
-    if (greenTeaSearch) {
-
-        greenTeaSearch.value =
-            "";
-
-    }
-
+    if (greenTeaSearch) greenTeaSearch.value = "";
 
     renderFamily();
 
-
-    document
-        .getElementById("productos")
-        ?.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-
+    document.getElementById("productos")?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 
@@ -3899,37 +3589,16 @@ function openFamily(family) {
 ========================================================= */
 
 function closeFamily() {
+    currentFamily = null;
+    currentFamilySearch = "";
 
-    currentFamily =
-        null;
+    greenTeaFamily?.classList.remove("active");
 
-    currentFamilySearch =
-        "";
+    if (mainCatalog) mainCatalog.style.display = "block";
 
-
-    greenTeaFamily?.classList.remove(
-        "active"
-    );
-
-
-    if (mainCatalog) {
-
-        mainCatalog.style.display =
-            "block";
-
-    }
-
-
-    if (greenTeaSearch) {
-
-        greenTeaSearch.value =
-            "";
-
-    }
-
+    if (greenTeaSearch) greenTeaSearch.value = "";
 
     renderProducts();
-
 }
 
 
@@ -3938,95 +3607,35 @@ function closeFamily() {
 ========================================================= */
 
 function renderFamily() {
+    if (!currentFamily || !greenTeaGrid) return;
 
-    if (
-        !currentFamily ||
-        !greenTeaGrid
-    ) {
-        return;
-    }
+    const family = teaFamilies[currentFamily];
+    if (!family) return;
 
+    const search = currentFamilySearch.toLowerCase().trim();
+    const filtered = family.variants.filter(item => {
+        return item.name.toLowerCase().includes(search) ||
+               item.description.toLowerCase().includes(search);
+    });
 
-    const family =
-        teaFamilies[
-            currentFamily
-        ];
-
-
-    if (!family) {
-        return;
-    }
-
-
-    const search =
-        currentFamilySearch
-            .toLowerCase()
-            .trim();
-
-
-    const filtered =
-        family.variants.filter(
-            item => {
-
-                return (
-                    item.name
-                        .toLowerCase()
-                        .includes(search) ||
-
-                    item.description
-                        .toLowerCase()
-                        .includes(search)
-                );
-
-            }
-        );
-
-
-    greenTeaGrid.innerHTML =
-        "";
-
+    greenTeaGrid.innerHTML = "";
 
     if (greenTeaCounter) {
-
-        greenTeaCounter.textContent =
-            `${filtered.length} ${
-                filtered.length === 1
-                    ? "producto"
-                    : "productos"
-            }`;
-
+        greenTeaCounter.textContent = `${filtered.length} ${filtered.length === 1 ? "producto" : "productos"}`;
     }
-
 
     if (!filtered.length) {
-
-        emptyGreenTea?.classList.add(
-            "show"
-        );
-
+        emptyGreenTea?.classList.add("show");
         return;
-
     }
 
+    emptyGreenTea?.classList.remove("show");
 
-    emptyGreenTea?.classList.remove(
-        "show"
-    );
-
-
-    filtered.forEach(
-        item => {
-
-            renderFamilyCard(
-                item
-            );
-
-        }
-    );
-
+    filtered.forEach(item => {
+        renderFamilyCard(item);
+    });
 
     attachFamilyEvents();
-
 }
 
 
@@ -4035,153 +3644,63 @@ function renderFamily() {
 ========================================================= */
 
 function renderFamilyCard(item) {
+    if (!greenTeaGrid) return;
 
-    if (!greenTeaGrid) {
-        return;
-    }
+    const card = document.createElement("article");
+    card.className = "green-tea-card";
 
+    const defaultFormat = item.formats[0];
+    const hasMultipleFormats = item.formats.length > 1;
+    const hasPrice = defaultFormat.price > 0;
 
-    const card =
-        document.createElement(
-            "article"
-        );
-
-
-    card.className =
-        "green-tea-card";
-
-
-    const defaultFormat =
-        item.formats[0];
-
-
-    const hasMultipleFormats =
-        item.formats.length > 1;
-
-
-    const hasPrice =
-        defaultFormat.price > 0;
-
+    const reviews = getReviews(item.id);
+    const avg = reviews.length ? getAverageRating(reviews) : item.rating;
+    const stars = renderStars(avg);
+    const availabilityText = item.available ? 'Sí' : 'No';
+    const availabilityClass = item.available ? 'available' : 'unavailable';
 
     card.innerHTML = `
-
-        <div
-            class="green-tea-image"
-        >
-
-            <span
-                class="green-tea-emoji"
-            >
-                ${item.emoji}
-            </span>
-
+        <div class="green-tea-image">
+            <span class="green-tea-emoji">${item.emoji}</span>
         </div>
+        <div class="green-tea-info">
+            <h3>${item.name}</h3>
+            <p>${item.description}</p>
 
-
-        <div
-            class="green-tea-info"
-        >
-
-            <h3>
-                ${item.name}
-            </h3>
-
-
-            <p>
-                ${item.description}
-            </p>
-
-
-            <span
-                class="formats-title"
-            >
-                ${
-                    hasMultipleFormats
-                        ? "Elige el formato"
-                        : "Formato disponible"
-                }
-            </span>
-
-
-            <div
-                class="format-options"
-            >
-
-                ${item.formats
-                    .map(
-                        (format, index) => `
-
-                            <button
-                                type="button"
-                                class="format-button ${
-                                    index === 0
-                                        ? "active"
-                                        : ""
-                                }"
-                                data-family-item="${item.id}"
-                                data-format="${index}"
-                            >
-                                ${format.name}
-                            </button>
-
-                        `
-                    )
-                    .join("")}
-
+            <div class="rating-container">
+                <span class="rating-stars">${stars}</span>
+                <span class="rating-count">${reviews.length} opiniones</span>
             </div>
+            <div class="product-availability">
+                <span class="availability-status ${availabilityClass}">
+                    ● ${availabilityText}
+                </span>
+                <span class="sku-label">SKU: ${item.sku}</span>
+            </div>
+            <button class="review-button" data-review-id="${item.id}">Opinar</button>
 
-
-            <div
-                class="green-tea-bottom"
-            >
-
-                <strong
-                    class="green-tea-price"
-                    data-price-for="${item.id}"
-                >
-
-                    ${
-                        hasPrice
-                            ? money.format(
-                                defaultFormat.price
-                            )
-                            : "Precio pendiente"
-                    }
-
+            <span class="formats-title">${hasMultipleFormats ? "Elige el formato" : "Formato disponible"}</span>
+            <div class="format-options">
+                ${item.formats.map((format, index) => `
+                    <button type="button" class="format-button ${index === 0 ? "active" : ""}"
+                        data-family-item="${item.id}" data-format="${index}">
+                        ${format.name}
+                    </button>
+                `).join("")}
+            </div>
+            <div class="green-tea-bottom">
+                <strong class="green-tea-price" data-price-for="${item.id}">
+                    ${hasPrice ? money.format(defaultFormat.price) : "Precio pendiente"}
                 </strong>
-
-
-                <button
-                    type="button"
-                    class="green-tea-add"
-                    data-family-add="${item.id}"
-                    data-format-index="0"
-                    ${
-                        !hasPrice
-                            ? "disabled"
-                            : ""
-                    }
-                >
-
-                    ${
-                        hasPrice
-                            ? "Añadir"
-                            : "Próximamente"
-                    }
-
+                <button type="button" class="green-tea-add" data-family-add="${item.id}"
+                    data-format-index="0" ${!hasPrice ? "disabled" : ""}>
+                    ${hasPrice ? "Añadir" : "Próximamente"}
                 </button>
-
             </div>
-
         </div>
-
     `;
 
-
-    greenTeaGrid.appendChild(
-        card
-    );
-
+    greenTeaGrid.appendChild(card);
 }
 
 
@@ -4190,54 +3709,28 @@ function renderFamilyCard(item) {
 ========================================================= */
 
 function attachFamilyEvents() {
+    document.querySelectorAll(".format-button[data-family-item]").forEach(button => {
+        button.addEventListener("click", () => {
+            selectFamilyFormat(button);
+        });
+    });
 
-    document
-        .querySelectorAll(
-            ".format-button[data-family-item]"
-        )
-        .forEach(
-            button => {
+    document.querySelectorAll("[data-family-add]").forEach(button => {
+        button.addEventListener("click", () => {
+            addFamilyProductToCart(
+                currentFamily,
+                button.dataset.familyAdd,
+                Number(button.dataset.formatIndex)
+            );
+        });
+    });
 
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        selectFamilyFormat(
-                            button
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-    document
-        .querySelectorAll(
-            "[data-family-add]"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        addFamilyProductToCart(
-                            currentFamily,
-                            button.dataset.familyAdd,
-                            Number(
-                                button.dataset.formatIndex
-                            )
-                        );
-
-                    }
-                );
-
-            }
-        );
-
+    document.querySelectorAll(".review-button").forEach(btn => {
+        btn.addEventListener("click", event => {
+            event.stopPropagation();
+            openReviewModal(btn.dataset.reviewId);
+        });
+    });
 }
 
 
@@ -4245,133 +3738,40 @@ function attachFamilyEvents() {
    23. SELECCIONAR FORMATO
 ========================================================= */
 
-function selectFamilyFormat(
-    button
-) {
+function selectFamilyFormat(button) {
+    const itemId = button.dataset.familyItem;
+    const formatIndex = Number(button.dataset.format);
+    const family = teaFamilies[currentFamily];
+    if (!family) return;
 
-    const itemId =
-        button.dataset.familyItem;
+    const item = family.variants.find(product => product.id === itemId);
+    if (!item) return;
 
+    const format = item.formats[formatIndex];
+    if (!format) return;
 
-    const formatIndex =
-        Number(
-            button.dataset.format
-        );
+    const card = button.closest(".green-tea-card");
+    if (!card) return;
 
+    card.querySelectorAll(".format-button").forEach(el => el.classList.remove("active"));
+    button.classList.add("active");
 
-    const family =
-        teaFamilies[
-            currentFamily
-        ];
-
-
-    if (!family) {
-        return;
-    }
-
-
-    const item =
-        family.variants.find(
-            product =>
-                product.id === itemId
-        );
-
-
-    if (!item) {
-        return;
-    }
-
-
-    const format =
-        item.formats[
-            formatIndex
-        ];
-
-
-    if (!format) {
-        return;
-    }
-
-
-    const card =
-        button.closest(
-            ".green-tea-card"
-        );
-
-
-    if (!card) {
-        return;
-    }
-
-
-    card
-        .querySelectorAll(
-            ".format-button"
-        )
-        .forEach(
-            element =>
-                element.classList.remove(
-                    "active"
-                )
-        );
-
-
-    button.classList.add(
-        "active"
-    );
-
-
-    const price =
-        card.querySelector(
-            `[data-price-for="${itemId}"]`
-        );
-
-
+    const price = card.querySelector(`[data-price-for="${itemId}"]`);
     if (price) {
-
-        price.textContent =
-            format.price > 0
-                ? money.format(
-                    format.price
-                )
-                : "Precio pendiente";
-
+        price.textContent = format.price > 0 ? money.format(format.price) : "Precio pendiente";
     }
 
+    const addButton = card.querySelector("[data-family-add]");
+    if (!addButton) return;
 
-    const addButton =
-        card.querySelector(
-            "[data-family-add]"
-        );
-
-
-    if (!addButton) {
-        return;
-    }
-
-
-    addButton.dataset.formatIndex =
-        formatIndex;
-
-
+    addButton.dataset.formatIndex = formatIndex;
     if (format.price > 0) {
-
-        addButton.disabled =
-            false;
-
-        addButton.textContent =
-            "Añadir";
-
+        addButton.disabled = false;
+        addButton.textContent = "Añadir";
     } else {
-
-        addButton.disabled =
-            true;
-
-        addButton.textContent =
-            "Próximamente";
-
+        addButton.disabled = true;
+        addButton.textContent = "Próximamente";
     }
-
 }
 
 
@@ -4379,115 +3779,40 @@ function selectFamilyFormat(
    24. AÑADIR PRODUCTO DE FAMILIA
 ========================================================= */
 
-function addFamilyProductToCart(
-    familyName,
-    itemId,
-    formatIndex
-) {
+function addFamilyProductToCart(familyName, itemId, formatIndex) {
+    const family = teaFamilies[familyName];
+    if (!family) return;
 
-    const family =
-        teaFamilies[
-            familyName
-        ];
+    const item = family.variants.find(product => product.id === itemId);
+    if (!item) return;
 
+    const format = item.formats[formatIndex];
+    if (!format) return;
 
-    if (!family) {
+    if (Number(format.price) <= 0) {
+        showToast("El precio de este producto está pendiente.");
         return;
     }
 
-
-    const item =
-        family.variants.find(
-            product =>
-                product.id === itemId
-        );
-
-
-    if (!item) {
-        return;
-    }
-
-
-    const format =
-        item.formats[
-            formatIndex
-        ];
-
-
-    if (!format) {
-        return;
-    }
-
-
-    if (
-        Number(format.price) <= 0
-    ) {
-
-        showToast(
-            "El precio de este producto está pendiente."
-        );
-
-        return;
-    }
-
-
-    const cartId =
-        `${familyName}-${item.id}-${formatIndex}`;
-
-
-    const existing =
-        cart.find(
-            product =>
-                product.cartId === cartId
-        );
-
+    const cartId = `${familyName}-${item.id}-${formatIndex}`;
+    const existing = cart.find(product => product.cartId === cartId);
 
     if (existing) {
-
         existing.quantity++;
-
     } else {
-
         cart.push({
-
-            cartId:
-
-                cartId,
-
-            id:
-
-                item.id,
-
-            name:
-
-                `${item.name} - ${format.name}`,
-
-            price:
-
-                Number(format.price),
-
-            quantity:
-
-                1,
-
-            emoji:
-
-                item.emoji
-
+            cartId: cartId,
+            id: item.id,
+            name: `${item.name} - ${format.name}`,
+            price: Number(format.price),
+            quantity: 1,
+            emoji: item.emoji
         });
-
     }
 
-
     saveCart();
-
     updateCart();
-
-
-    showToast(
-        `${item.name} (${format.name}) añadido al carrito`
-    );
-
+    showToast(`${item.name} (${format.name}) añadido al carrito`);
 }
 
 
@@ -4496,26 +3821,12 @@ function addFamilyProductToCart(
 ========================================================= */
 
 function renderGreenTea() {
-
-    currentFamily =
-        "green-tea";
-
+    currentFamily = "green-tea";
     renderFamily();
-
 }
 
-
-function addGreenTeaToCart(
-    teaId,
-    formatIndex
-) {
-
-    addFamilyProductToCart(
-        "green-tea",
-        teaId,
-        formatIndex
-    );
-
+function addGreenTeaToCart(teaId, formatIndex) {
+    addFamilyProductToCart("green-tea", teaId, formatIndex);
 }
 
 
@@ -4523,81 +3834,33 @@ function addGreenTeaToCart(
    26. AÑADIR PRODUCTO NORMAL
 ========================================================= */
 
-function addToCart(
-    productId
-) {
-
-    const product =
-        products.find(
-            item =>
-                item.id === productId
-        );
-
-
-    if (!product) {
-        return;
-    }
-
+function addToCart(productId) {
+    const product = products.find(item => item.id === productId);
+    if (!product) return;
 
     if (product.family) {
-
-        openFamily(
-            product.family
-        );
-
+        openFamily(product.family);
         return;
-
     }
 
-
-    const existing =
-        cart.find(
-            item =>
-                item.cartId ===
-                product.id
-        );
-
+    const existing = cart.find(item => item.cartId === product.id);
 
     if (existing) {
-
         existing.quantity++;
-
     } else {
-
         cart.push({
-
-            cartId:
-                product.id,
-
-            id:
-                product.id,
-
-            name:
-                product.name,
-
-            price:
-                Number(product.price),
-
-            quantity:
-                1,
-
-            emoji:
-                product.emoji
-
+            cartId: product.id,
+            id: product.id,
+            name: product.name,
+            price: Number(product.price),
+            quantity: 1,
+            emoji: product.emoji
         });
-
     }
 
-
     saveCart();
-
     updateCart();
-
-
-    showToast(
-        `${product.name} añadido al carrito`
-    );
-
+    showToast(`${product.name} añadido al carrito`);
 }
 
 
@@ -4606,254 +3869,63 @@ function addToCart(
 ========================================================= */
 
 function updateCart() {
+    if (!cartItems) return;
 
-    if (!cartItems) {
-        return;
-    }
-
-
-    cartItems.innerHTML =
-        "";
-
+    cartItems.innerHTML = "";
 
     if (!cart.length) {
-
         cartItems.innerHTML = `
-
-            <div
-                class="cart-empty"
-            >
-
-                <div
-                    class="cart-empty-icon"
-                >
-                    🛒
-                </div>
-
-                <h4>
-                    Tu carrito está vacío
-                </h4>
-
-                <p>
-                    Añade productos para comenzar.
-                </p>
-
+            <div class="cart-empty">
+                <div class="cart-empty-icon">🛒</div>
+                <h4>Tu carrito está vacío</h4>
+                <p>Añade productos para comenzar.</p>
             </div>
-
         `;
-
-
-        if (cartFooter) {
-
-            cartFooter.style.display =
-                "none";
-
-        }
-
+        if (cartFooter) cartFooter.style.display = "none";
     } else {
+        if (cartFooter) cartFooter.style.display = "block";
 
-        if (cartFooter) {
-
-            cartFooter.style.display =
-                "block";
-
-        }
-
-
-        cart.forEach(
-            item => {
-
-                const element =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                element.className =
-                    "cart-item";
-
-
-                element.innerHTML = `
-
-                    <div
-                        class="cart-item-image"
-                    >
-                        ${
-                            item.emoji ||
-                            "🌿"
-                        }
+        cart.forEach(item => {
+            const element = document.createElement("div");
+            element.className = "cart-item";
+            element.innerHTML = `
+                <div class="cart-item-image">${item.emoji || "🌿"}</div>
+                <div>
+                    <h4>${item.name}</h4>
+                    <div class="cart-item-price">${money.format(item.price)}</div>
+                    <div class="quantity-controls">
+                        <button type="button" data-minus="${item.cartId}">−</button>
+                        <span>${item.quantity}</span>
+                        <button type="button" data-plus="${item.cartId}">+</button>
                     </div>
-
-
-                    <div>
-
-                        <h4>
-                            ${item.name}
-                        </h4>
-
-
-                        <div
-                            class="cart-item-price"
-                        >
-                            ${money.format(
-                                item.price
-                            )}
-                        </div>
-
-
-                        <div
-                            class="quantity-controls"
-                        >
-
-                            <button
-                                type="button"
-                                data-minus="${item.cartId}"
-                            >
-                                −
-                            </button>
-
-
-                            <span>
-                                ${item.quantity}
-                            </span>
-
-
-                            <button
-                                type="button"
-                                data-plus="${item.cartId}"
-                            >
-                                +
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        type="button"
-                        class="remove-item"
-                        data-remove="${item.cartId}"
-                    >
-                        ×
-                    </button>
-
-                `;
-
-
-                cartItems.appendChild(
-                    element
-                );
-
-            }
-        );
-
+                </div>
+                <button type="button" class="remove-item" data-remove="${item.cartId}">×</button>
+            `;
+            cartItems.appendChild(element);
+        });
 
         attachCartEvents();
-
     }
 
+    const quantity = cart.reduce((total, item) => total + item.quantity, 0);
+    const subtotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    const shipping = subtotal >= 35 ? 0 : subtotal > 0 ? 4.90 : 0;
+    const total = subtotal + shipping;
 
-    const quantity =
-        cart.reduce(
-            (total, item) =>
-                total +
-                item.quantity,
-            0
-        );
-
-
-    const subtotal =
-        cart.reduce(
-            (total, item) =>
-                total +
-                item.price *
-                item.quantity,
-            0
-        );
-
-
-    const shipping =
-        subtotal >= 35
-            ? 0
-            : subtotal > 0
-                ? 4.90
-                : 0;
-
-
-    const total =
-        subtotal +
-        shipping;
-
-
-    if (cartCount) {
-
-        cartCount.textContent =
-            quantity;
-
-    }
-
-
-    if (cartSubtotal) {
-
-        cartSubtotal.textContent =
-            money.format(
-                subtotal
-            );
-
-    }
-
-
-    if (cartShipping) {
-
-        cartShipping.textContent =
-            shipping === 0
-                ? "Gratis"
-                : money.format(
-                    shipping
-                );
-
-    }
-
-
-    if (cartTotal) {
-
-        cartTotal.textContent =
-            money.format(
-                total
-            );
-
-    }
-
+    if (cartCount) cartCount.textContent = quantity;
+    if (cartSubtotal) cartSubtotal.textContent = money.format(subtotal);
+    if (cartShipping) cartShipping.textContent = shipping === 0 ? "Gratis" : money.format(shipping);
+    if (cartTotal) cartTotal.textContent = money.format(total);
 
     if (shippingMessage) {
-
-        if (
-            subtotal > 0 &&
-            subtotal < 35
-        ) {
-
-            shippingMessage.textContent =
-                `Te faltan ${money.format(
-                    35 - subtotal
-                )} para conseguir envío gratis.`;
-
-        } else if (
-            subtotal >= 35
-        ) {
-
-            shippingMessage.textContent =
-                "¡Has conseguido envío gratis!";
-
+        if (subtotal > 0 && subtotal < 35) {
+            shippingMessage.textContent = `Te faltan ${money.format(35 - subtotal)} para conseguir envío gratis.`;
+        } else if (subtotal >= 35) {
+            shippingMessage.textContent = "¡Has conseguido envío gratis!";
         } else {
-
-            shippingMessage.textContent =
-                "";
-
+            shippingMessage.textContent = "";
         }
-
     }
-
 }
 
 
@@ -4862,74 +3934,23 @@ function updateCart() {
 ========================================================= */
 
 function attachCartEvents() {
+    document.querySelectorAll("[data-minus]").forEach(button => {
+        button.addEventListener("click", () => {
+            changeQuantity(button.dataset.minus, -1);
+        });
+    });
 
-    document
-        .querySelectorAll(
-            "[data-minus]"
-        )
-        .forEach(
-            button => {
+    document.querySelectorAll("[data-plus]").forEach(button => {
+        button.addEventListener("click", () => {
+            changeQuantity(button.dataset.plus, 1);
+        });
+    });
 
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        changeQuantity(
-                            button.dataset.minus,
-                            -1
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-    document
-        .querySelectorAll(
-            "[data-plus]"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        changeQuantity(
-                            button.dataset.plus,
-                            1
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-    document
-        .querySelectorAll(
-            "[data-remove]"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        removeFromCart(
-                            button.dataset.remove
-                        );
-
-                    }
-                );
-
-            }
-        );
-
+    document.querySelectorAll("[data-remove]").forEach(button => {
+        button.addEventListener("click", () => {
+            removeFromCart(button.dataset.remove);
+        });
+    });
 }
 
 
@@ -4937,46 +3958,18 @@ function attachCartEvents() {
    29. CAMBIAR CANTIDAD
 ========================================================= */
 
-function changeQuantity(
-    cartId,
-    amount
-) {
+function changeQuantity(cartId, amount) {
+    const item = cart.find(product => product.cartId === cartId);
+    if (!item) return;
 
-    const item =
-        cart.find(
-            product =>
-                product.cartId ===
-                cartId
-        );
+    item.quantity += amount;
 
-
-    if (!item) {
-        return;
+    if (item.quantity <= 0) {
+        cart = cart.filter(product => product.cartId !== cartId);
     }
-
-
-    item.quantity +=
-        amount;
-
-
-    if (
-        item.quantity <= 0
-    ) {
-
-        cart =
-            cart.filter(
-                product =>
-                    product.cartId !==
-                    cartId
-            );
-
-    }
-
 
     saveCart();
-
     updateCart();
-
 }
 
 
@@ -4984,22 +3977,10 @@ function changeQuantity(
    30. ELIMINAR DEL CARRITO
 ========================================================= */
 
-function removeFromCart(
-    cartId
-) {
-
-    cart =
-        cart.filter(
-            item =>
-                item.cartId !==
-                cartId
-        );
-
-
+function removeFromCart(cartId) {
+    cart = cart.filter(item => item.cartId !== cartId);
     saveCart();
-
     updateCart();
-
 }
 
 
@@ -5007,112 +3988,43 @@ function removeFromCart(
    31. FILTROS PRINCIPALES
 ========================================================= */
 
-document
-    .querySelectorAll(
-        ".filter-button"
-    )
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    document
-                        .querySelectorAll(
-                            ".filter-button"
-                        )
-                        .forEach(
-                            item =>
-                                item.classList.remove(
-                                    "active"
-                                )
-                        );
-
-
-                    button.classList.add(
-                        "active"
-                    );
-
-
-                    currentCategory =
-                        button.dataset.filter;
-
-
-                    closeFamily();
-
-                    renderProducts();
-
-                }
-            );
-
-        }
-    );
+document.querySelectorAll(".filter-button").forEach(button => {
+    button.addEventListener("click", () => {
+        document.querySelectorAll(".filter-button").forEach(item => item.classList.remove("active"));
+        button.classList.add("active");
+        currentCategory = button.dataset.filter;
+        closeFamily();
+        renderProducts();
+    });
+});
 
 
 /* =========================================================
    32. TARJETAS DE SUBCATEGORÍAS DE TÉ
 ========================================================= */
 
-document
-    .querySelectorAll(
-        ".tea-category-card"
-    )
-    .forEach(
-        card => {
+document.querySelectorAll(".tea-category-card").forEach(card => {
+    card.addEventListener("click", event => {
+        event.preventDefault();
+        event.stopPropagation();
 
-            card.addEventListener(
-                "click",
-                event => {
-
-                    event.preventDefault();
-
-                    event.stopPropagation();
-
-
-                    const family =
-                        card.dataset.teaFamily;
-
-
-                    if (
-                        family &&
-                        teaFamilies[family]
-                    ) {
-
-                        openFamily(
-                            family
-                        );
-
-                    }
-
-                }
-            );
-
+        const family = card.dataset.teaFamily;
+        if (family && teaFamilies[family]) {
+            openFamily(family);
         }
-    );
+    });
+});
 
 
 /* =========================================================
    33. ORDENAR PRODUCTOS
 ========================================================= */
 
-const sortProducts =
-    document.getElementById(
-        "sortProducts"
-    );
-
-
+const sortProducts = document.getElementById("sortProducts");
 if (sortProducts) {
-
-    sortProducts.addEventListener(
-        "change",
-        () => {
-
-            renderProducts();
-
-        }
-    );
-
+    sortProducts.addEventListener("change", () => {
+        renderProducts();
+    });
 }
 
 
@@ -5120,23 +4032,11 @@ if (sortProducts) {
    34. BUSCADOR PRINCIPAL
 ========================================================= */
 
-const searchInput =
-    document.getElementById(
-        "searchInput"
-    );
-
-
+const searchInput = document.getElementById("searchInput");
 if (searchInput) {
-
-    searchInput.addEventListener(
-        "input",
-        () => {
-
-            renderProducts();
-
-        }
-    );
-
+    searchInput.addEventListener("input", () => {
+        renderProducts();
+    });
 }
 
 
@@ -5145,19 +4045,10 @@ if (searchInput) {
 ========================================================= */
 
 if (greenTeaSearch) {
-
-    greenTeaSearch.addEventListener(
-        "input",
-        event => {
-
-            currentFamilySearch =
-                event.target.value;
-
-            renderFamily();
-
-        }
-    );
-
+    greenTeaSearch.addEventListener("input", event => {
+        currentFamilySearch = event.target.value;
+        renderFamily();
+    });
 }
 
 
@@ -5165,96 +4056,34 @@ if (greenTeaSearch) {
    36. CATEGORÍAS PRINCIPALES
 ========================================================= */
 
-document
-    .querySelectorAll(
-        ".category-card"
-    )
-    .forEach(
-        card => {
+document.querySelectorAll(".category-card").forEach(card => {
+    card.addEventListener("click", event => {
+        if (event.target.closest(".tea-category-card")) return;
 
-            card.addEventListener(
-                "click",
-                event => {
+        const category = card.dataset.category;
+        if (!category) return;
 
-                    if (
-                        event.target.closest(
-                            ".tea-category-card"
-                        )
-                    ) {
-                        return;
-                    }
+        currentCategory = category;
 
+        document.querySelectorAll(".filter-button").forEach(button => {
+            button.classList.toggle("active", button.dataset.filter === category);
+        });
 
-                    const category =
-                        card.dataset.category;
-
-
-                    if (!category) {
-                        return;
-                    }
-
-
-                    currentCategory =
-                        category;
-
-
-                    document
-                        .querySelectorAll(
-                            ".filter-button"
-                        )
-                        .forEach(
-                            button => {
-
-                                button.classList.toggle(
-                                    "active",
-                                    button.dataset.filter ===
-                                    category
-                                );
-
-                            }
-                        );
-
-
-                    closeFamily();
-
-
-                    document
-                        .getElementById(
-                            "productos"
-                        )
-                        ?.scrollIntoView({
-                            behavior:
-                                "smooth"
-                        });
-
-                }
-            );
-
-        }
-    );
+        closeFamily();
+        document.getElementById("productos")?.scrollIntoView({ behavior: "smooth" });
+    });
+});
 
 
 /* =========================================================
    37. BOTÓN VOLVER
 ========================================================= */
 
-const backToCatalog =
-    document.getElementById(
-        "backToCatalog"
-    );
-
-
+const backToCatalog = document.getElementById("backToCatalog");
 if (backToCatalog) {
-
-    backToCatalog.addEventListener(
-        "click",
-        () => {
-
-            closeFamily();
-
-        }
-    );
-
+    backToCatalog.addEventListener("click", () => {
+        closeFamily();
+    });
 }
 
 
@@ -5262,25 +4091,11 @@ if (backToCatalog) {
    38. ABRIR CARRITO
 ========================================================= */
 
-const cartButton =
-    document.getElementById(
-        "cartButton"
-    );
-
-
+const cartButton = document.getElementById("cartButton");
 if (cartButton) {
-
-    cartButton.addEventListener(
-        "click",
-        () => {
-
-            cartOverlay?.classList.add(
-                "active"
-            );
-
-        }
-    );
-
+    cartButton.addEventListener("click", () => {
+        cartOverlay?.classList.add("active");
+    });
 }
 
 
@@ -5288,25 +4103,11 @@ if (cartButton) {
    39. CERRAR CARRITO
 ========================================================= */
 
-const closeCart =
-    document.getElementById(
-        "closeCart"
-    );
-
-
+const closeCart = document.getElementById("closeCart");
 if (closeCart) {
-
-    closeCart.addEventListener(
-        "click",
-        () => {
-
-            cartOverlay?.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
+    closeCart.addEventListener("click", () => {
+        cartOverlay?.classList.remove("active");
+    });
 }
 
 
@@ -5315,25 +4116,11 @@ if (closeCart) {
 ========================================================= */
 
 if (cartOverlay) {
-
-    cartOverlay.addEventListener(
-        "click",
-        event => {
-
-            if (
-                event.target ===
-                cartOverlay
-            ) {
-
-                cartOverlay.classList.remove(
-                    "active"
-                );
-
-            }
-
+    cartOverlay.addEventListener("click", event => {
+        if (event.target === cartOverlay) {
+            cartOverlay.classList.remove("active");
         }
-    );
-
+    });
 }
 
 
@@ -5341,44 +4128,16 @@ if (cartOverlay) {
    41. PANEL DE BÚSQUEDA
 ========================================================= */
 
-const searchButton =
-    document.getElementById(
-        "searchButton"
-    );
+const searchButton = document.getElementById("searchButton");
+const searchPanel = document.getElementById("searchPanel");
 
-const searchPanel =
-    document.getElementById(
-        "searchPanel"
-    );
-
-
-if (
-    searchButton &&
-    searchPanel
-) {
-
-    searchButton.addEventListener(
-        "click",
-        () => {
-
-            searchPanel.classList.toggle(
-                "active"
-            );
-
-
-            if (
-                searchPanel.classList.contains(
-                    "active"
-                )
-            ) {
-
-                searchInput?.focus();
-
-            }
-
+if (searchButton && searchPanel) {
+    searchButton.addEventListener("click", () => {
+        searchPanel.classList.toggle("active");
+        if (searchPanel.classList.contains("active")) {
+            searchInput?.focus();
         }
-    );
-
+    });
 }
 
 
@@ -5386,699 +4145,243 @@ if (
    42. CHECKOUT
 ========================================================= */
 
-const checkoutButton =
-    document.getElementById(
-        "checkoutButton"
-    );
-
-
-const closeCheckout =
-    document.getElementById(
-        "closeCheckout"
-    );
-
-
-const checkoutForm =
-    document.getElementById(
-        "checkoutForm"
-    );
-
+const checkoutButton = document.getElementById("checkoutButton");
+const closeCheckout = document.getElementById("closeCheckout");
+const checkoutForm = document.getElementById("checkoutForm");
 
 if (checkoutButton) {
-
-    checkoutButton.addEventListener(
-        "click",
-        () => {
-
-            if (!cart.length) {
-
-                showToast(
-                    "Tu carrito está vacío."
-                );
-
-                return;
-
-            }
-
-
-            checkoutModal?.classList.add(
-                "active"
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   43. CERRAR CHECKOUT
-========================================================= */
-
-if (closeCheckout) {
-
-    closeCheckout.addEventListener(
-        "click",
-        () => {
-
-            checkoutModal?.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   44. FORMULARIO CHECKOUT
-========================================================= */
-
-if (checkoutForm) {
-
-    checkoutForm.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-
-            const orderNumber =
-                Math.floor(
-                    100000 +
-                    Math.random() *
-                    900000
-                );
-
-
-            checkoutModal?.classList.remove(
-                "active"
-            );
-
-
-            cart = [];
-
-
-            saveCart();
-
-            updateCart();
-
-
-            cartOverlay?.classList.remove(
-                "active"
-            );
-
-
-            checkoutForm.reset();
-
-
-            showToast(
-                `Pedido #${orderNumber} realizado correctamente.`
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   45. NEWSLETTER
-========================================================= */
-
-const newsletterForm =
-    document.getElementById(
-        "newsletterForm"
-    );
-
-
-if (newsletterForm) {
-
-    newsletterForm.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-
-            newsletterForm.reset();
-
-
-            showToast(
-                "¡Gracias por suscribirte!"
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   46. TECLA ESC
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key !== "Escape"
-        ) {
+    checkoutButton.addEventListener("click", () => {
+        if (!cart.length) {
+            showToast("Tu carrito está vacío.");
             return;
         }
+        checkoutModal?.classList.add("active");
+    });
+}
 
+if (closeCheckout) {
+    closeCheckout.addEventListener("click", () => {
+        checkoutModal?.classList.remove("active");
+    });
+}
 
-        cartOverlay?.classList.remove(
-            "active"
-        );
+if (checkoutForm) {
+    checkoutForm.addEventListener("submit", event => {
+        event.preventDefault();
+        const orderNumber = Math.floor(100000 + Math.random() * 900000);
 
-
-        checkoutModal?.classList.remove(
-            "active"
-        );
-
-
-        searchPanel?.classList.remove(
-            "active"
-        );
-
-
-        if (
-            currentFamily
-        ) {
-
-            closeFamily();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   47. FUNCIONES AUXILIARES
-========================================================= */
-
-function getFamilyProducts(
-    family
-) {
-
-    if (
-        !teaFamilies[family]
-    ) {
-        return [];
-    }
-
-
-    return teaFamilies[
-        family
-    ].variants;
-
+        checkoutModal?.classList.remove("active");
+        cart = [];
+        saveCart();
+        updateCart();
+        cartOverlay?.classList.remove("active");
+        checkoutForm.reset();
+        showToast(`Pedido #${orderNumber} realizado correctamente.`);
+    });
 }
 
 
 /* =========================================================
-   48. BUSCAR PRODUCTO DE FAMILIA
+   43. NEWSLETTER
 ========================================================= */
 
-function findFamilyProduct(
-    family,
-    productId
-) {
-
-    const products =
-        getFamilyProducts(
-            family
-        );
-
-
-    return products.find(
-        product =>
-            product.id ===
-            productId
-    );
-
+const newsletterForm = document.getElementById("newsletterForm");
+if (newsletterForm) {
+    newsletterForm.addEventListener("submit", event => {
+        event.preventDefault();
+        newsletterForm.reset();
+        showToast("¡Gracias por suscribirte!");
+    });
 }
 
 
 /* =========================================================
-   49. OBTENER PRECIO
+   44. TECLA ESC
 ========================================================= */
 
-function getFamilyPrice(
-    family,
-    productId,
-    formatIndex = 0
-) {
+document.addEventListener("keydown", event => {
+    if (event.key !== "Escape") return;
 
-    const product =
-        findFamilyProduct(
-            family,
-            productId
-        );
+    cartOverlay?.classList.remove("active");
+    checkoutModal?.classList.remove("active");
+    reviewModal?.classList.remove("active");
+    searchPanel?.classList.remove("active");
+
+    if (currentFamily) {
+        closeFamily();
+    }
+});
 
 
+/* =========================================================
+   45. MODAL DE OPINIÓN
+========================================================= */
+
+let currentReviewProductId = null;
+let selectedRating = 0;
+
+function openReviewModal(productId) {
+    let product = products.find(p => p.id === productId);
     if (!product) {
-        return 0;
+        for (const familyKey in teaFamilies) {
+            product = teaFamilies[familyKey].variants.find(v => v.id === productId);
+            if (product) break;
+        }
     }
 
+    if (!product) return;
 
-    const format =
-        product.formats[
-            formatIndex
-        ];
-
-
-    return format
-        ? Number(format.price)
-        : 0;
-
+    currentReviewProductId = productId;
+    reviewProductName.textContent = product.name;
+    selectedRating = 0;
+    reviewStars.forEach(s => s.classList.remove("active"));
+    reviewText.value = '';
+    reviewModal.classList.add("active");
 }
+
+reviewStars.forEach(star => {
+    star.addEventListener("click", () => {
+        selectedRating = parseInt(star.dataset.value);
+        reviewStars.forEach(s => {
+            s.classList.toggle("active", parseInt(s.dataset.value) <= selectedRating);
+        });
+    });
+});
+
+closeReviewBtn.addEventListener("click", () => {
+    reviewModal.classList.remove("active");
+});
+
+submitReviewBtn.addEventListener("click", () => {
+    if (selectedRating === 0) {
+        alert("Selecciona una valoración de 1 a 5 estrellas.");
+        return;
+    }
+
+    saveReview(currentReviewProductId, selectedRating, reviewText.value.trim());
+    reviewModal.classList.remove("active");
+
+    if (currentFamily) {
+        renderFamily();
+    } else {
+        renderProducts();
+    }
+
+    showToast("¡Gracias por tu valoración!");
+});
 
 
 /* =========================================================
-   50. COMPROBAR FAMILIA
+   46. FUNCIONES AUXILIARES
 ========================================================= */
 
-function familyExists(
-    family
-) {
-
-    return Boolean(
-        teaFamilies[family]
-    );
-
+function getFamilyProducts(family) {
+    if (!teaFamilies[family]) return [];
+    return teaFamilies[family].variants;
 }
 
+function findFamilyProduct(family, productId) {
+    const products = getFamilyProducts(family);
+    return products.find(product => product.id === productId);
+}
 
-/* =========================================================
-   51. OBTENER FAMILIA ACTUAL
-========================================================= */
+function getFamilyPrice(family, productId, formatIndex = 0) {
+    const product = findFamilyProduct(family, productId);
+    if (!product) return 0;
+    const format = product.formats[formatIndex];
+    return format ? Number(format.price) : 0;
+}
+
+function familyExists(family) {
+    return Boolean(teaFamilies[family]);
+}
 
 function getCurrentFamily() {
-
     return currentFamily;
-
 }
 
-
-/* =========================================================
-   52. CONTAR PRODUCTOS
-========================================================= */
-
-function countFamilyProducts(
-    family
-) {
-
-    return getFamilyProducts(
-        family
-    ).length;
-
+function countFamilyProducts(family) {
+    return getFamilyProducts(family).length;
 }
-
-
-/* =========================================================
-   53. OBTENER FAMILIAS
-========================================================= */
 
 function getAvailableFamilies() {
-
-    return Object.keys(
-        teaFamilies
-    );
-
+    return Object.keys(teaFamilies);
 }
 
-
-/* =========================================================
-   54. VALIDAR PRECIO
-========================================================= */
-
-function hasValidPrice(
-    price
-) {
-
-    return (
-        Number(price) > 0
-    );
-
+function hasValidPrice(price) {
+    return Number(price) > 0;
 }
 
-
-/* =========================================================
-   55. TEXTO DEL PRECIO
-========================================================= */
-
-function getPriceText(
-    price
-) {
-
-    return hasValidPrice(price)
-        ? money.format(
-            Number(price)
-        )
-        : "Precio pendiente";
-
+function getPriceText(price) {
+    return hasValidPrice(price) ? money.format(Number(price)) : "Precio pendiente";
 }
 
-
-/* =========================================================
-   56. NORMALIZAR TEXTO
-========================================================= */
-
-function normalizeText(
-    value
-) {
-
-    return String(
-        value || ""
-    )
-        .toLowerCase()
-        .normalize(
-            "NFD"
-        )
-        .replace(
-            /[\u0300-\u036f]/g,
-            ""
-        )
-        .trim();
-
+function normalizeText(value) {
+    return String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 }
 
-
-/* =========================================================
-   57. BUSCAR DENTRO DE FAMILIA
-========================================================= */
-
-function searchFamily(
-    family,
-    query
-) {
-
-    const products =
-        getFamilyProducts(
-            family
-        );
-
-
-    const normalized =
-        normalizeText(
-            query
-        );
-
-
-    return products.filter(
-        product => {
-
-            return (
-
-                normalizeText(
-                    product.name
-                ).includes(
-                    normalized
-                )
-
-                ||
-
-                normalizeText(
-                    product.description
-                ).includes(
-                    normalized
-                )
-
-            );
-
-        }
-    );
-
+function searchFamily(family, query) {
+    const products = getFamilyProducts(family);
+    const normalized = normalizeText(query);
+    return products.filter(product => {
+        return normalizeText(product.name).includes(normalized) ||
+               normalizeText(product.description).includes(normalized);
+    });
 }
 
-
-/* =========================================================
-   58. OBTENER FORMATO
-========================================================= */
-
-function getFamilyFormat(
-    family,
-    productId,
-    formatIndex
-) {
-
-    const product =
-        findFamilyProduct(
-            family,
-            productId
-        );
-
-
-    if (!product) {
-        return null;
-    }
-
-
-    return (
-        product.formats[
-            formatIndex
-        ] || null
-    );
-
+function getFamilyFormat(family, productId, formatIndex) {
+    const product = findFamilyProduct(family, productId);
+    if (!product) return null;
+    return product.formats[formatIndex] || null;
 }
-
-
-/* =========================================================
-   59. OBTENER CANTIDAD DEL CARRITO
-========================================================= */
 
 function getCartQuantity() {
-
-    return cart.reduce(
-        (
-            total,
-            item
-        ) =>
-            total +
-            Number(
-                item.quantity
-            ),
-        0
-    );
-
+    return cart.reduce((total, item) => total + Number(item.quantity), 0);
 }
-
-
-/* =========================================================
-   60. OBTENER SUBTOTAL
-========================================================= */
 
 function getCartSubtotal() {
-
-    return cart.reduce(
-        (
-            total,
-            item
-        ) =>
-            total +
-            (
-                Number(
-                    item.price
-                ) *
-                Number(
-                    item.quantity
-                )
-            ),
-        0
-    );
-
+    return cart.reduce((total, item) => total + Number(item.price) * Number(item.quantity), 0);
 }
-
-
-/* =========================================================
-   61. OBTENER ENVÍO
-========================================================= */
 
 function getShippingCost() {
-
-    const subtotal =
-        getCartSubtotal();
-
-
-    if (
-        subtotal <= 0
-    ) {
-        return 0;
-    }
-
-
-    if (
-        subtotal >= 35
-    ) {
-        return 0;
-    }
-
-
+    const subtotal = getCartSubtotal();
+    if (subtotal <= 0) return 0;
+    if (subtotal >= 35) return 0;
     return 4.90;
-
 }
-
-
-/* =========================================================
-   62. OBTENER TOTAL
-========================================================= */
 
 function getCartTotal() {
-
-    return (
-        getCartSubtotal() +
-        getShippingCost()
-    );
-
+    return getCartSubtotal() + getShippingCost();
 }
 
-
-/* =========================================================
-   63. FAMILIA DISPONIBLE
-========================================================= */
-
-function openTeaFamily(
-    family
-) {
-
-    if (
-        !familyExists(
-            family
-        )
-    ) {
-
-        showToast(
-            "Familia no disponible."
-        );
-
+function openTeaFamily(family) {
+    if (!familyExists(family)) {
+        showToast("Familia no disponible.");
         return;
-
     }
-
-
-    openFamily(
-        family
-    );
-
+    openFamily(family);
 }
+
+function openRooibos() { openFamily("rooibos"); }
+function openRedTea() { openFamily("red-tea"); }
+function openBlackTea() { openFamily("black-tea"); }
+function openMatcha() { openFamily("matcha"); }
+function openGreenTea() { openFamily("green-tea"); }
+function openWhiteTea() { openFamily("white-tea"); }
+function openOolong() { openFamily("oolong"); }
 
 
 /* =========================================================
-   64. ACCESO DIRECTO ROOIBOS
-========================================================= */
-
-function openRooibos() {
-
-    openFamily(
-        "rooibos"
-    );
-
-}
-
-
-/* =========================================================
-   65. ACCESO DIRECTO TÉ ROJO
-========================================================= */
-
-function openRedTea() {
-
-    openFamily(
-        "red-tea"
-    );
-
-}
-
-
-/* =========================================================
-   66. ACCESO DIRECTO TÉ NEGRO
-========================================================= */
-
-function openBlackTea() {
-
-    openFamily(
-        "black-tea"
-    );
-
-}
-
-
-/* =========================================================
-   67. ACCESO DIRECTO MATCHA
-========================================================= */
-
-function openMatcha() {
-
-    openFamily(
-        "matcha"
-    );
-
-}
-
-
-/* =========================================================
-   68. ACCESO DIRECTO TÉ VERDE
-========================================================= */
-
-function openGreenTea() {
-
-    openFamily(
-        "green-tea"
-    );
-
-}
-
-
-/* =========================================================
-   69. ACCESO DIRECTO TÉ BLANCO
-========================================================= */
-
-function openWhiteTea() {
-
-    openFamily(
-        "white-tea"
-    );
-
-}
-
-
-/* =========================================================
-   70. ACCESO DIRECTO TÉ OOLONG
-========================================================= */
-
-function openOolong() {
-
-    openFamily(
-        "oolong"
-    );
-
-}
-
-
-/* =========================================================
-   71. INICIALIZACIÓN
+   47. INICIALIZACIÓN
 ========================================================= */
 
 function initStore() {
-
     loadCart();
-
     renderProducts();
-
     updateCart();
-
 }
 
-
-/* =========================================================
-   72. INICIAR TIENDA
-========================================================= */
-
 initStore();
-
 
 /* =========================================================
    FIN DEL SCRIPT
