@@ -289,6 +289,7 @@ products.forEach(p => {
     p.sku = p.sku || "TJ0021";
 });
 
+
 /* =========================================================
    02. TÉ VERDE
 ========================================================= */
@@ -301,6 +302,7 @@ const greenTeaVariants = [
         description:
             "Té verde aromatizado con delicadas flores de jazmín.",
         emoji: "🌸",
+        image: "images/products-te-verde-jazmin-y-flores.jpg",
         formats: [
             { name: "50 g", price: 5.90 },
             { name: "100 g", price: 9.90 }
@@ -3659,9 +3661,14 @@ function renderFamilyCard(item) {
     const availabilityText = item.available ? 'Sí' : 'No';
     const availabilityClass = item.available ? 'available' : 'unavailable';
 
+    // Determinar si mostrar imagen o emoji
+    const imageContent = item.image
+        ? `<img src="${item.image}" alt="${item.name}" class="green-tea-img">`
+        : `<span class="green-tea-emoji">${item.emoji}</span>`;
+
     card.innerHTML = `
         <div class="green-tea-image">
-            <span class="green-tea-emoji">${item.emoji}</span>
+            ${imageContent}
         </div>
         <div class="green-tea-info">
             <h3>${item.name}</h3>

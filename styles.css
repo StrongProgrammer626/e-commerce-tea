@@ -1337,6 +1337,16 @@ img {
     font-size: 65px;
 }
 
+/* NUEVO: Imagen de producto dentro de variantes */
+.green-tea-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+    position: relative;
+    z-index: 2;
+}
+
 .green-tea-info {
     flex: 1;
 
@@ -2251,7 +2261,7 @@ img {
 
 
 /* =========================================================
-   REVIEWS / RATING (NUEVO)
+   REVIEWS / RATING
 ========================================================= */
 
 .rating-container {
