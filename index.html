@@ -1156,7 +1156,7 @@
 
 
 <!-- =====================================================
-     MODAL OPINIÓN (NUEVO)
+     MODAL OPINIÓN
 ===================================================== -->
 
 <div
@@ -1212,6 +1212,151 @@
             >
                 Enviar
             </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MODAL VISTA RÁPIDA (NUEVA)
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="quickViewModal"
+>
+
+    <div class="modal quick-view-modal">
+
+        <button
+            class="close-quick-view"
+            id="closeQuickView"
+        >
+            ×
+        </button>
+
+
+        <div class="quick-view-content">
+
+            <!-- Imagen / Emoji -->
+            <div
+                class="quick-view-image"
+                id="quickViewImage"
+            >
+            </div>
+
+
+            <!-- Información -->
+            <div class="quick-view-info">
+
+                <span
+                    class="product-category"
+                    id="quickViewCategory"
+                >
+                </span>
+
+
+                <h2
+                    class="quick-view-title"
+                    id="quickViewTitle"
+                >
+                </h2>
+
+
+                <div
+                    class="rating-container"
+                    id="quickViewRating"
+                >
+                </div>
+
+
+                <div
+                    class="product-availability"
+                    id="quickViewAvailability"
+                >
+                </div>
+
+
+                <p
+                    class="quick-view-description"
+                    id="quickViewDescription"
+                >
+                </p>
+
+
+                <!-- Pestañas -->
+                <div class="quick-view-tabs">
+
+                    <button
+                        class="quick-view-tab active"
+                        data-tab="details"
+                    >
+                        Detalles
+                    </button>
+
+                    <button
+                        class="quick-view-tab"
+                        data-tab="ingredients"
+                    >
+                        Ingredientes
+                    </button>
+
+                    <button
+                        class="quick-view-tab"
+                        data-tab="reviews"
+                    >
+                        Opiniones
+                    </button>
+
+                </div>
+
+
+                <div class="quick-view-tab-content">
+
+                    <div
+                        class="quick-view-tab-pane active"
+                        id="quickViewDetails"
+                    >
+                    </div>
+
+                    <div
+                        class="quick-view-tab-pane"
+                        id="quickViewIngredients"
+                    >
+                    </div>
+
+                    <div
+                        class="quick-view-tab-pane"
+                        id="quickViewReviews"
+                    >
+                    </div>
+
+                </div>
+
+
+                <!-- Precio y botón -->
+                <div class="quick-view-bottom">
+
+                    <strong
+                        class="quick-view-price"
+                        id="quickViewPrice"
+                    >
+                    </strong>
+
+                    <button
+                        class="quick-view-add"
+                        id="quickViewAdd"
+                    >
+                        Añadir al carrito
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
 

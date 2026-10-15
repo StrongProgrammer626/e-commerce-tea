@@ -3307,6 +3307,9 @@ let currentFamilySearch = "";
 
 let toastTimer = null;
 
+// NUEVO: Producto que se está mostrando en la vista rápida
+let quickViewProduct = null;
+
 /* =========================================================
    10. ELEMENTOS DEL DOM
 ========================================================= */
@@ -3330,13 +3333,29 @@ const shippingMessage = document.getElementById("shippingMessage");
 const toast = document.getElementById("toast");
 const checkoutModal = document.getElementById("checkoutModal");
 
-// Nuevos elementos para opiniones
+// Elementos para opiniones
 const reviewModal = document.getElementById("reviewModal");
 const reviewProductName = document.getElementById("reviewProductName");
 const reviewStars = document.querySelectorAll(".review-star");
 const reviewText = document.getElementById("reviewText");
 const closeReviewBtn = document.getElementById("closeReview");
 const submitReviewBtn = document.getElementById("submitReview");
+
+// NUEVO: Elementos de la vista rápida
+const quickViewModal = document.getElementById("quickViewModal");
+const closeQuickView = document.getElementById("closeQuickView");
+const quickViewImage = document.getElementById("quickViewImage");
+const quickViewCategory = document.getElementById("quickViewCategory");
+const quickViewTitle = document.getElementById("quickViewTitle");
+const quickViewRating = document.getElementById("quickViewRating");
+const quickViewAvailability = document.getElementById("quickViewAvailability");
+const quickViewDescription = document.getElementById("quickViewDescription");
+const quickViewPrice = document.getElementById("quickViewPrice");
+const quickViewAdd = document.getElementById("quickViewAdd");
+const quickViewDetails = document.getElementById("quickViewDetails");
+const quickViewIngredients = document.getElementById("quickViewIngredients");
+const quickViewReviews = document.getElementById("quickViewReviews");
+const quickViewTabs = document.querySelectorAll(".quick-view-tab");
 
 
 /* =========================================================
@@ -3519,6 +3538,14 @@ function renderProducts() {
             </div>
         `;
 
+        // NUEVO: Abrir vista rápida al hacer clic en la tarjeta (excepto si se pulsa en botones de acción)
+        card.addEventListener("click", (e) => {
+            if (e.target.closest(".add-button") || e.target.closest(".family-open") || e.target.closest(".review-button")) {
+                return;
+            }
+            openQuickView(product);
+        });
+
         productsGrid.appendChild(card);
     });
 
@@ -3661,7 +3688,6 @@ function renderFamilyCard(item) {
     const availabilityText = item.available ? 'Sí' : 'No';
     const availabilityClass = item.available ? 'available' : 'unavailable';
 
-    // Determinar si mostrar imagen o emoji
     const imageContent = item.image
         ? `<img src="${item.image}" alt="${item.name}" class="green-tea-img">`
         : `<span class="green-tea-emoji">${item.emoji}</span>`;
@@ -3706,6 +3732,14 @@ function renderFamilyCard(item) {
             </div>
         </div>
     `;
+
+    // NUEVO: Abrir vista rápida al hacer clic en la tarjeta (excepto si se pulsa en botones de acción)
+    card.addEventListener("click", (e) => {
+        if (e.target.closest(".green-tea-add") || e.target.closest(".format-button") || e.target.closest(".review-button")) {
+            return;
+        }
+        openQuickView(item, currentFamily);
+    });
 
     greenTeaGrid.appendChild(card);
 }
@@ -4212,6 +4246,7 @@ document.addEventListener("keydown", event => {
     cartOverlay?.classList.remove("active");
     checkoutModal?.classList.remove("active");
     reviewModal?.classList.remove("active");
+    quickViewModal?.classList.remove("active");
     searchPanel?.classList.remove("active");
 
     if (currentFamily) {
@@ -4279,7 +4314,145 @@ submitReviewBtn.addEventListener("click", () => {
 
 
 /* =========================================================
-   46. FUNCIONES AUXILIARES
+   46. MODAL DE VISTA RÁPIDA (NUEVA)
+========================================================= */
+
+function openQuickView(product, familyKey = null) {
+    quickViewProduct = product;
+    quickViewProduct.familyKey = familyKey;
+
+    // Imagen o emoji
+    if (product.image) {
+        quickViewImage.innerHTML = `<img src="${product.image}" alt="${product.name}">`;
+    } else {
+        quickViewImage.innerHTML = `<span class="quick-view-emoji">${product.emoji}</span>`;
+    }
+
+    // Categoría
+    quickViewCategory.textContent = familyKey ? (teaFamilies[familyKey]?.title || "Té") : getCategoryName(product.category);
+
+    // Título
+    quickViewTitle.textContent = product.name;
+
+    // Valoración
+    const reviews = getReviews(product.id);
+    const avg = reviews.length ? getAverageRating(reviews) : (product.rating || 4.5);
+    const stars = renderStars(avg);
+    quickViewRating.innerHTML = `
+        <span class="rating-stars">${stars}</span>
+        <span class="rating-count">${reviews.length} opiniones</span>
+    `;
+
+    // Disponibilidad y SKU
+    const availabilityText = (product.available !== false) ? 'Disponible' : 'No disponible';
+    const availabilityClass = (product.available !== false) ? 'available' : 'unavailable';
+    quickViewAvailability.innerHTML = `
+        <span class="availability-status ${availabilityClass}">
+            ● ${availabilityText}
+        </span>
+        <span class="sku-label">SKU: ${product.sku || "TJ0021"}</span>
+    `;
+
+    // Descripción
+    quickViewDescription.textContent = product.description;
+
+    // Precio
+    let priceText = "Precio pendiente";
+    if (product.formats && product.formats.length) {
+        priceText = product.formats[0].price > 0 ? money.format(product.formats[0].price) : "Precio pendiente";
+    } else if (product.price) {
+        priceText = money.format(product.price);
+    }
+    quickViewPrice.textContent = priceText;
+
+    // Botón de añadir
+    if (product.formats && product.formats.length) {
+        const hasPrice = product.formats[0].price > 0;
+        quickViewAdd.disabled = !hasPrice;
+        quickViewAdd.textContent = hasPrice ? "Añadir al carrito" : "Próximamente";
+    } else {
+        quickViewAdd.disabled = false;
+        quickViewAdd.textContent = "Añadir al carrito";
+    }
+
+    // Pestañas: contenido por defecto
+    quickViewDetails.innerHTML = `
+        <p>${product.description}</p>
+        ${product.formats ? `<p><strong>Formatos:</strong> ${product.formats.map(f => f.name).join(", ")}</p>` : ""}
+    `;
+    quickViewIngredients.innerHTML = `
+        <p>Ingredientes de calidad seleccionados.</p>
+    `;
+    quickViewReviews.innerHTML = reviews.length
+        ? reviews.map(r => `<div class="quick-view-review-item"><strong>${"★".repeat(r.rating)}</strong> — ${r.text || "Sin comentario"}</div>`).join("")
+        : "<p>Aún no hay opiniones. ¡Sé el primero en valorar este producto!</p>";
+
+    // Reset pestañas activas
+    quickViewTabs.forEach(t => t.classList.remove("active"));
+    quickViewTabs[0].classList.add("active");
+    document.querySelectorAll(".quick-view-tab-pane").forEach(p => p.classList.remove("active"));
+    quickViewDetails.classList.add("active");
+
+    // Abrir modal
+    quickViewModal.classList.add("active");
+}
+
+// Cerrar vista rápida
+if (closeQuickView) {
+    closeQuickView.addEventListener("click", () => {
+        quickViewModal.classList.remove("active");
+    });
+}
+
+// Cerrar al hacer clic fuera
+if (quickViewModal) {
+    quickViewModal.addEventListener("click", (e) => {
+        if (e.target === quickViewModal) {
+            quickViewModal.classList.remove("active");
+        }
+    });
+}
+
+// Añadir al carrito desde la vista rápida
+if (quickViewAdd) {
+    quickViewAdd.addEventListener("click", () => {
+        if (!quickViewProduct) return;
+
+        if (quickViewProduct.familyKey) {
+            // Es una variante de familia
+            const family = teaFamilies[quickViewProduct.familyKey];
+            const item = family.variants.find(v => v.id === quickViewProduct.id);
+            if (item && item.formats && item.formats.length) {
+                addFamilyProductToCart(quickViewProduct.familyKey, item.id, 0);
+            }
+        } else {
+            // Producto principal
+            addToCart(quickViewProduct.id);
+        }
+
+        quickViewModal.classList.remove("active");
+    });
+}
+
+// Gestión de pestañas
+quickViewTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+        const target = tab.dataset.tab;
+
+        quickViewTabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        document.querySelectorAll(".quick-view-tab-pane").forEach(pane => pane.classList.remove("active"));
+
+        if (target === "details") quickViewDetails.classList.add("active");
+        if (target === "ingredients") quickViewIngredients.classList.add("active");
+        if (target === "reviews") quickViewReviews.classList.add("active");
+    });
+});
+
+
+/* =========================================================
+   47. FUNCIONES AUXILIARES
 ========================================================= */
 
 function getFamilyProducts(family) {
@@ -4379,7 +4552,7 @@ function openOolong() { openFamily("oolong"); }
 
 
 /* =========================================================
-   47. INICIALIZACIÓN
+   48. INICIALIZACIÓN
 ========================================================= */
 
 function initStore() {
